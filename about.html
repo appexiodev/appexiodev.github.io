@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | AppExio Dev</title>
+
+    <meta
+        name="description"
+        content="Learn about AppExio Dev and the digital products we create."
+    >
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <style>
+        /* =====================================================
+           THEME
+        ===================================================== */
+
+        :root {
+            --bg: #08090d;
+            --surface: #10121a;
+            --surface-2: #151824;
+            --text: #f5f7fb;
+            --muted: #9ca3b4;
+            --border: rgba(255,255,255,.09);
+            --primary: #7c5cff;
+            --primary-soft: rgba(124,92,255,.12);
+            --shadow: 0 20px 60px rgba(0,0,0,.25);
+        }
+
+        html.light {
+            --bg: #f7f8fc;
+            --surface: #ffffff;
+            --surface-2: #f0f1f6;
+            --text: #171923;
+            --muted: #62697a;
+            --border: rgba(0,0,0,.09);
+            --primary: #6847e8;
+            --primary-soft: rgba(104,71,232,.10);
+            --shadow: 0 20px 60px rgba(0,0,0,.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background .25s ease, color .25s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, calc(100% - 32px));
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(8,9,13,.82);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        html.light header {
+            background: rgba(247,248,252,.85);
+        }
+
+        .nav {
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a {
+            padding: 9px 13px;
+            border-radius: 9px;
+
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: .2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--primary-soft);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-btn,
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+
+            background: var(--surface);
+            color: var(--text);
+
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        .mobile-menu {
+            display: none;
+            padding: 10px 16px 16px;
+
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-menu a {
+            display: block;
+
+            padding: 12px 14px;
+            margin-top: 4px;
+
+            border-radius: 10px;
+
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--text);
+            background: var(--primary-soft);
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            padding: 100px 0 75px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 50px;
+
+            background: var(--surface);
+
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            max-width: 800px;
+            margin: auto;
+
+            font-size: clamp(40px, 7vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -3px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 22px auto 0;
+
+            color: var(--muted);
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            margin-bottom: 30px;
+        }
+
+        .section-title small {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title h2 {
+            margin-top: 7px;
+
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .section-title p {
+            margin-top: 10px;
+
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        .about-box {
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 13px;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .studio-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .studio-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 18px;
+
+            border-radius: 18px;
+
+            background: var(--primary-soft);
+            color: var(--primary);
+
+            font-size: 25px;
+        }
+
+
+        /* =====================================================
+           PRODUCTS
+        ===================================================== */
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .product {
+            padding: 25px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .product-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: var(--primary-soft);
+            color: var(--primary);
+
+            margin-bottom: 17px;
+        }
+
+        .product h3 {
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .product p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .product a {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           VALUES
+        ===================================================== */
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .value {
+            padding: 22px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+        }
+
+        .value i {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 13px;
+        }
+
+        .value h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .value p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .cta {
+            text-align: center;
+            padding: 55px 25px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+        }
+
+        .cta h2 {
+            font-size: 31px;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 10px auto 22px;
+
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            background: var(--primary);
+            color: white;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            margin-top: 40px;
+            padding: 50px 0 22px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-brand p {
+            max-width: 320px;
+
+            margin-top: 13px;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer h4 {
+            margin-bottom: 13px;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            margin-top: 35px;
+            padding-top: 18px;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .container {
+                width: min(100% - 22px, 650px);
+            }
+
+            .nav {
+                height: 64px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+
+            .hero {
+                padding: 70px 0 45px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            section {
+                padding: 45px 0;
+            }
+
+            .section-title h2 {
+                font-size: 27px;
+            }
+
+            .about-box {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .card {
+                padding: 22px 18px;
+            }
+
+            .products {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .product {
+                padding: 18px 13px;
+            }
+
+            .product:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .product h3 {
+                font-size: 16px;
+            }
+
+            .product p {
+                font-size: 11px;
+            }
+
+            .values {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .value {
+                padding: 17px 13px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px 15px;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .products {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .values {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <header>
+
+        <div class="container nav">
+
+            <a href="index.html" class="brand">
+
+                <img src="logo.png" alt="AppExio Dev">
+
+                <div>
+                    AppExio <span>Devs</span>
+                </div>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#products">
+                    Products
+                </a>
+
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+                <!-- THEME ALWAYS OUTSIDE MENU -->
+
+                <button
+                    class="theme-btn"
+                    id="themeBtn"
+                    aria-label="Change theme"
+                >
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+
+                <!-- MOBILE MENU -->
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                    aria-label="Open menu"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <nav class="mobile-menu" id="mobileMenu">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#products">
+                Products
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="container">
+
+                <div class="badge">
+                    <i class="fa-solid fa-code"></i>
+                    Independent Developer Studio
+                </div>
+
+                <h1>
+                    About
+                    <span>AppExio Devs</span>
+                </h1>
+
+                <p>
+                    AppExio Dev is an independent developer studio
+                    focused on creating useful digital products,
+                    practical web tools, and simple experiences.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ABOUT -->
+
+        <section>
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <small>Who We Are</small>
+
+                    <h2>
+                        Building useful digital experiences.
+                    </h2>
+
+                </div>
+
+
+                <div class="about-box">
+
+                    <div class="card">
+
+                        <h3>
+                            About AppExio Dev
+                        </h3>
+
+                        <p>
+                            AppExio Dev is a developer studio focused
+                            on building independent digital products
+                            that are practical, accessible, and easy
+                            to use.
+                        </p>
+
+                        <p>
+                            We work on products across different areas
+                            of the digital world, from software
+                            discovery to everyday web utilities.
+                        </p>
+
+                        <p>
+                            Each product has its own identity and
+                            purpose while being developed with the
+                            same focus on simplicity, usability, and
+                            continuous improvement.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card studio-card">
+
+                        <div class="studio-icon">
+
+                            <i class="fa-solid fa-laptop-code"></i>
+
+                        </div>
+
+                        <h3>
+                            Create. Improve. Build.
+                        </h3>
+
+                        <p>
+                            Turning ideas into useful digital
+                            products.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- PRODUCTS -->
+
+        <section id="products">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <small>Our Products</small>
+
+                    <h2>
+                        What we build.
+                    </h2>
+
+                    <p>
+                        Three independent products, each created
+                        for a different purpose.
+                    </p>
+
+                </div>
+
+
+                <div class="products">
+
+
+                    <article class="product">
+
+                        <div class="product-icon">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+
+                        <h3>
+                            AppExio
+                        </h3>
+
+                        <p>
+                            Android and PC marketplace for discovering
+                            apps, games, and software.
+                        </p>
+
+                        <a
+                            href="https://appexio.github.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Visit AppExio →
+                        </a>
+
+                    </article>
+
+
+                    <article class="product">
+
+                        <div class="product-icon">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+
+                        <h3>
+                            A-PDF
+                        </h3>
+
+                        <p>
+                            Practical browser-based tools for working
+                            with PDF documents.
+                        </p>
+
+                        <a
+                            href="https://a-pdf.github.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Visit A-PDF →
+                        </a>
+
+                    </article>
+
+
+                    <article class="product">
+
+                        <div class="product-icon">
+                            <i class="fa-solid fa-crop-simple"></i>
+                        </div>
+
+                        <h3>
+                            A-Cropper
+                        </h3>
+
+                        <p>
+                            Simple image tools for cropping, resizing,
+                            editing, and exporting images.
+                        </p>
+
+                        <a
+                            href="https://a-croppers.github.io/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Visit A-Cropper →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- VALUES -->
+
+        <section>
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <small>Our Approach</small>
+
+                    <h2>
+                        What matters to us.
+                    </h2>
+
+                </div>
+
+
+                <div class="values">
+
+
+                    <div class="value">
+
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                        <h3>
+                            Simplicity
+                        </h3>
+
+                        <p>
+                            Keep products easy to understand and use.
+                        </p>
+
+                    </div>
+
+
+                    <div class="value">
+
+                        <i class="fa-solid fa-gears"></i>
+
+                        <h3>
+                            Practicality
+                        </h3>
+
+                        <p>
+                            Build features that solve real problems.
+                        </p>
+
+                    </div>
+
+
+                    <div class="value">
+
+                        <i class="fa-solid fa-mobile-screen"></i>
+
+                        <h3>
+                            Accessibility
+                        </h3>
+
+                        <p>
+                            Make products comfortable across devices.
+                        </p>
+
+                    </div>
+
+
+                    <div class="value">
+
+                        <i class="fa-solid fa-arrow-rotate-right"></i>
+
+                        <h3>
+                            Improvement
+                        </h3>
+
+                        <p>
+                            Keep learning, refining, and improving.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CTA -->
+
+        <section>
+
+            <div class="container">
+
+                <div class="cta">
+
+                    <h2>
+                        Explore what we're building.
+                    </h2>
+
+                    <p>
+                        Discover the independent products created
+                        by AppExio Dev.
+                    </p>
+
+                    <a
+                        href="index.html#products"
+                        class="btn"
+                    >
+                        Explore Products
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <div class="footer-brand">
+
+                    <a href="index.html" class="brand">
+
+                        <img src="logo.png" alt="AppExio Dev">
+
+                        <div>
+                            AppExio <span>Dev</span>
+                        </div>
+
+                    </a>
+
+                    <p>
+                        Independent developer studio creating
+                        practical digital products and web tools.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Products
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="https://appexio.github.io/">
+                            AppExio
+                        </a>
+
+                        <a href="https://a-pdf.github.io/">
+                            A-PDF
+                        </a>
+
+                        <a href="https://a-croppers.github.io/">
+                            A-Cropper
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Company
+                    </h4>
+
+                    <div class="footer-links">
+
+
+                        <a href="contact.html">
+                            Contact
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Legal
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="privacy.html">
+                            Privacy Policy
+                        </a>
+
+                        <a href="terms.html">
+                            Terms
+                        </a>
+
+                        <a href="disclaimer.html">
+                            Disclaimer
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                © <span id="year"></span> AppExio Devs.
+                All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         THEME + MENU SCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* THEME */
+
+        const themeBtn = document.getElementById("themeBtn");
+
+        const savedTheme = localStorage.getItem("appexio-dev-theme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light");
+        }
+
+        function updateThemeIcon() {
+
+            const icon = themeBtn.querySelector("i");
+
+            if (document.documentElement.classList.contains("light")) {
+
+                icon.className = "fa-solid fa-sun";
+
+            } else {
+
+                icon.className = "fa-solid fa-moon";
+
+            }
+        }
+
+        updateThemeIcon();
+
+        themeBtn.addEventListener("click", () => {
+
+            document.documentElement.classList.toggle("light");
+
+            const light =
+                document.documentElement.classList.contains("light");
+
+            localStorage.setItem(
+                "appexio-dev-theme",
+                light ? "light" : "dark"
+            );
+
+            updateThemeIcon();
+
+        });
+
+
+
+        /* MOBILE MENU */
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const mobileMenu =
+            document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+
+            mobileMenu.classList.toggle("open");
+
+            const icon =
+                menuBtn.querySelector("i");
+
+            if (mobileMenu.classList.contains("open")) {
+
+                icon.className = "fa-solid fa-xmark";
+
+            } else {
+
+                icon.className = "fa-solid fa-bars";
+
+            }
+
+        });
+
+
+        /* CLOSE MENU AFTER LINK */
+
+        mobileMenu.querySelectorAll("a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                mobileMenu.classList.remove("open");
+
+                menuBtn.querySelector("i").className =
+                    "fa-solid fa-bars";
+
+            });
+
+        });
+
+
+
+        /* YEAR */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+    </script>
+
+</body>
+</html>

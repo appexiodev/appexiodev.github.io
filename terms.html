@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Terms of Service | AppExio Dev</title>
+  <meta name="description" content="Terms of Service for AppExio Dev and its independent digital products.">
+
+  <link rel="icon" href="favicon.png">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0b0d12;
+      --surface: #12151c;
+      --text: #ffffff;
+      --muted: #9ca3af;
+      --border: rgba(255,255,255,0.09);
+      --primary: #7c5cff;
+      --primary-soft: rgba(124,92,255,0.12);
+      --shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    html.light {
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --text: #111318;
+      --muted: #687080;
+      --border: rgba(0,0,0,0.09);
+      --primary: #6547e8;
+      --primary-soft: rgba(101,71,232,0.10);
+      --shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11,13,18,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    html.light header {
+      background: rgba(247,248,251,0.92);
+    }
+
+    .nav {
+      max-width: 1150px;
+      margin: auto;
+      min-height: 70px;
+      padding: 0 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 9px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .desktop-nav a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active {
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .theme-btn,
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* ================= MOBILE MENU ================= */
+
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ================= MAIN ================= */
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 80px 20px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .page-header small {
+      display: inline-block;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 7px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 17px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(36px, 6vw, 54px);
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ================= TERMS CONTENT ================= */
+
+    .terms {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+    }
+
+    .terms h2 {
+      font-size: 21px;
+      margin-top: 32px;
+      margin-bottom: 10px;
+    }
+
+    .terms h2:first-child {
+      margin-top: 0;
+    }
+
+    .terms p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 13px;
+    }
+
+    .terms ul {
+      color: var(--muted);
+      font-size: 14px;
+      padding-left: 22px;
+      margin-bottom: 15px;
+    }
+
+    .terms li {
+      margin-bottom: 7px;
+    }
+
+    .terms a {
+      color: var(--primary);
+    }
+
+    .updated {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px !important;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 45px 20px 25px;
+    }
+
+    .footer-inner {
+      max-width: 1150px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 35px;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 280px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      margin-bottom: 13px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .footer-column a:hover {
+      color: var(--text);
+    }
+
+    .copyright {
+      max-width: 1150px;
+      margin: 35px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 800px) {
+
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .mobile-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 12px;
+        right: 12px;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 10px;
+
+        background: #11131a;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+
+        transition: .2s;
+      }
+
+      html.light .mobile-menu {
+        background: #ffffff;
+        border-color: rgba(0,0,0,0.10);
+      }
+
+      .mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .mobile-menu a {
+        padding: 12px;
+        border-radius: 9px;
+        color: #ffffff;
+        font-size: 14px;
+      }
+
+      html.light .mobile-menu a {
+        color: #111318;
+      }
+
+      .mobile-menu a:hover {
+        background: var(--primary-soft);
+      }
+
+      .terms {
+        padding: 26px 20px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      main {
+        padding: 60px 16px;
+      }
+
+      .terms {
+        padding: 24px 18px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header>
+
+    <div class="nav">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="AppExio Dev Logo">
+        <span>AppExio Dev</span>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="actions">
+
+        <!-- Theme button stays outside menu -->
+        <button class="theme-btn" id="themeBtn" aria-label="Change theme">
+          ☀
+        </button>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+          ☰
+        </button>
+
+      </div>
+
+      <!-- Mobile menu -->
+
+      <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main>
+
+    <section class="page-header">
+
+      <small>LEGAL</small>
+
+      <h1>Terms of Service</h1>
+
+      <p>
+        Please read these terms before using AppExio Dev and its products.
+      </p>
+
+    </section>
+
+
+    <article class="terms">
+
+      <h2>1. Acceptance of Terms</h2>
+
+      <p>
+        By accessing or using AppExio Dev or any of its independent
+        products, you agree to these Terms of Service. If you do not
+        agree with these terms, please do not use our websites or services.
+      </p>
+
+
+      <h2>2. About AppExio Dev</h2>
+
+      <p>
+        AppExio Dev is an independent developer studio that creates and
+        maintains digital products and websites.
+      </p>
+
+      <p>
+        Our products are independent projects and may provide different
+        features, services, and functionality.
+      </p>
+
+
+      <h2>3. Use of Our Products</h2>
+
+      <p>
+        You agree to use our websites and products only for lawful purposes
+        and in a way that does not interfere with or damage the services.
+      </p>
+
+      <p>You must not:</p>
+
+      <ul>
+        <li>Use our products for unlawful activities.</li>
+        <li>Attempt to gain unauthorized access to our systems.</li>
+        <li>Interfere with the operation or security of our websites.</li>
+        <li>Copy, modify, or redistribute our products in an unauthorized way.</li>
+        <li>Use our services to violate the rights of others.</li>
+      </ul>
+
+
+      <h2>4. Intellectual Property</h2>
+
+      <p>
+        Unless otherwise stated, the software, website design, branding,
+        logos, text, graphics, and other original content created by
+        AppExio Dev are owned by or licensed to AppExio Dev.
+      </p>
+
+      <p>
+        You may not reproduce, redistribute, modify, or commercially exploit
+        our original content without appropriate permission.
+      </p>
+
+
+      <h2>5. Third-Party Services and Links</h2>
+
+      <p>
+        Our websites may contain links to third-party websites, platforms,
+        or services. These services are operated independently from
+        AppExio Dev.
+      </p>
+
+      <p>
+        We are not responsible for the content, availability, policies,
+        security, or practices of third-party websites.
+      </p>
+
+
+      <h2>6. Availability</h2>
+
+      <p>
+        We aim to keep our websites and products available and functional,
+        but we do not guarantee that they will always be available,
+        uninterrupted, or completely free of errors.
+      </p>
+
+      <p>
+        Features may be changed, updated, suspended, or removed at any time.
+      </p>
+
+
+      <h2>7. Disclaimer</h2>
+
+      <p>
+        Our products are provided on an "as is" and "as available" basis
+        to the extent permitted by applicable law.
+      </p>
+
+      <p>
+        We do not guarantee that our products will meet every user's
+        individual requirements or that they will always operate without
+        interruptions or errors.
+      </p>
+
+
+      <h2>8. Limitation of Liability</h2>
+
+      <p>
+        To the extent permitted by applicable law, AppExio Dev shall not
+        be responsible for indirect, incidental, special, or consequential
+        losses arising from the use of or inability to use our products.
+      </p>
+
+
+      <h2>9. Changes to These Terms</h2>
+
+      <p>
+        We may update these Terms of Service from time to time.
+        When changes are made, the updated version will be published on
+        this page.
+      </p>
+
+      <p>
+        Your continued use of our products after changes are published
+        means you accept the updated terms.
+      </p>
+
+
+      <h2>10. Contact</h2>
+
+      <p>
+        If you have questions about these Terms of Service, you can
+        contact AppExio Dev through our
+        <a href="contact.html">Contact page</a>.
+      </p>
+
+
+      <p class="updated">
+        Last updated: September 8, 2026
+      </p>
+
+    </article>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <div class="footer-brand">
+          AppExio Devs
+        </div>
+
+        <p class="footer-text">
+          Independent developer studio building simple,
+          useful and accessible digital products.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Products</h3>
+
+        <a href="https://appexio.github.io/" target="_blank">
+          AppExio
+        </a>
+
+        <a href="https://a-pdf.github.io/" target="_blank">
+          A-PDF
+        </a>
+
+        <a href="https://a-croppers.github.io/" target="_blank">
+          A-Cropper
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Company</h3>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Legal</h3>
+
+        <a href="privacy.html">
+          Privacy Policy
+        </a>
+
+        <a href="disclaimer.html">
+          Disclaimer
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+      © <span id="year"></span> AppExio Dev. All rights reserved.
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================= SCRIPT ================= -->
+
+  <script>
+
+    const html = document.documentElement;
+    const themeBtn = document.getElementById("themeBtn");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+
+    /* ================= THEME ================= */
+
+    const savedTheme =
+      localStorage.getItem("appexio-dev-theme");
+
+    if (savedTheme === "light") {
+
+      html.classList.add("light");
+      themeBtn.textContent = "☾";
+
+    } else {
+
+      themeBtn.textContent = "☀";
+
+    }
+
+
+    themeBtn.addEventListener("click", () => {
+
+      html.classList.toggle("light");
+
+      const isLight =
+        html.classList.contains("light");
+
+      localStorage.setItem(
+        "appexio-dev-theme",
+        isLight ? "light" : "dark"
+      );
+
+      themeBtn.textContent =
+        isLight ? "☾" : "☀";
+
+    });
+
+
+    /* ================= MOBILE MENU ================= */
+
+    menuBtn.addEventListener("click", () => {
+
+      mobileMenu.classList.toggle("active");
+
+      menuBtn.textContent =
+        mobileMenu.classList.contains("active")
+          ? "✕"
+          : "☰";
+
+    });
+
+
+    /* Close menu after clicking */
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        mobileMenu.classList.remove("active");
+        menuBtn.textContent = "☰";
+
+      });
+
+    });
+
+
+    /* Close menu when clicking outside */
+
+    document.addEventListener("click", (event) => {
+
+      if (
+        !mobileMenu.contains(event.target) &&
+        !menuBtn.contains(event.target)
+      ) {
+
+        mobileMenu.classList.remove("active");
+        menuBtn.textContent = "☰";
+
+      }
+
+    });
+
+
+    /* Footer year */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+</body>
+</html>
