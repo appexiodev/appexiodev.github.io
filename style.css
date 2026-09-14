@@ -3354,6 +3354,18 @@ html.light-theme .statement-glow {
 
 }
 
+@media (max-width: 520px) {
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .products-grid .product-card {
+        grid-column: auto !important;
+        width: 100% !important;
+        max-width: none !important;
+    }
+}
+
 
 /* =========================================================
    FOCUS STATES
