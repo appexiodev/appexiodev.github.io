@@ -2463,16 +2463,6 @@ html.light-theme .statement-glow {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .product-card:last-child {
-        grid-column: 1 / -1;
-
-        max-width: 600px;
-
-        width: 100%;
-
-        margin: 0 auto;
-    }
-
     .about-grid {
         grid-template-columns: 1fr;
 
