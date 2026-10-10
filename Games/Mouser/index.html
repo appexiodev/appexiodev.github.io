@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070a14" />
+  <title>NEON VANGUARD — AppeXio Devs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <main id="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Neon Vanguard home">
+        <span class="brand-mark">N<span>V</span></span>
+        <span class="brand-name">NEON<span>VANGUARD</span></span>
+      </a>
+      <div class="top-meta"><span class="live-dot"></span> SYSTEM ONLINE <i></i> SECTOR 07</div>
+      <button id="soundBtn" class="icon-btn" aria-label="Toggle sound" title="Toggle sound">♫ <span>SOUND</span></button>
+    </header>
+
+    <section id="menuScreen" class="screen menu-screen">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> A NEW SIGNAL HAS EMERGED</div>
+        <h1>THE LAST<br><em>LIGHT</em> IN<br>THE VOID.</h1>
+        <p class="intro">Humanity's final frontier is under siege. Pilot the Vanguard, survive the breach, and become the signal they fear.</p>
+        <div class="hero-actions">
+          <button id="startBtn" class="primary-btn"><span>▶</span> INITIATE MISSION <b>↗</b></button>
+          <button id="howBtn" class="secondary-btn">HOW TO PLAY <span>↓</span></button>
+        </div>
+        <div class="micro-stats">
+          <div><strong>∞</strong><span>ENDLESS WAVES</span></div>
+          <div><strong>01</strong><span>LAST PILOT</span></div>
+          <div><strong>100%</strong><span>YOUR LEGEND</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+        <div class="planet"></div><div class="planet-ring"></div>
+        <div class="ship-art"><div class="ship-core"></div><div class="ship-wing left"></div><div class="ship-wing right"></div><div class="ship-flame"></div></div>
+        <div class="visual-label label-top"><span>FIG. 01</span> VANGUARD CLASS // MK-IV</div>
+        <div class="visual-label label-bottom"><span>THREAT LEVEL</span><b>CRITICAL</b></div>
+        <div class="crosshair">+</div>
+      </div>
+      <div class="madeby"><span class="made-line"></span><span>AN ORIGINAL WEB GAME</span><b>PRODUCED BY <strong>APPEXIO DEVS</strong></b></div>
+      <div class="version">NV // 01.07.26 <span>BUILD 0.9.4</span></div>
+    </section>
+
+    <section id="howScreen" class="screen modal-screen hidden">
+      <div class="modal-card">
+        <button class="close-btn" id="closeHow" aria-label="Close">×</button>
+        <div class="eyebrow"><span></span> PILOT BRIEFING</div>
+        <h2>LEARN TO <em>SURVIVE.</em></h2>
+        <div class="controls-grid">
+          <div class="control-item"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>MOVE YOUR SHIP</span></div>
+          <div class="control-item"><kbd>MOUSE</kbd><span>AIM YOUR WEAPON</span></div>
+          <div class="control-item"><kbd>CLICK</kbd><span>FIRE PULSE CANNON</span></div>
+          <div class="control-item"><kbd>SPACE</kbd><span>PHASE DASH</span></div>
+          <div class="control-item"><kbd>P</kbd><span>PAUSE MISSION</span></div>
+        </div>
+        <p class="briefing-note">Destroy hostile drones, collect energy shards, and survive each wave. Every fifth wave brings a heavier threat. Your dash grants a brief moment of invulnerability.</p>
+        <button id="briefStart" class="primary-btn full-btn">I'M READY <b>↗</b></button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="game-screen hidden">
+      <canvas id="gameCanvas"></canvas>
+      <div class="hud">
+        <div class="hud-top">
+          <div class="hud-panel player-panel"><div class="hud-label">VANGUARD <span>MK-IV</span></div><div class="health-track"><div id="healthFill"></div></div><div class="hud-small"><span>HULL INTEGRITY</span><b id="healthText">100%</b></div></div>
+          <div class="wave-panel"><span class="hud-label">CURRENT SECTOR</span><strong id="waveText">01</strong><span id="waveState">BREACH INCOMING</span></div>
+          <div class="hud-panel score-panel"><div class="hud-label">MISSION SCORE</div><strong id="scoreText">000000</strong><div class="hud-small"><span>ELIMINATIONS</span><b id="killText">0</b></div></div>
+        </div>
+        <div class="hud-bottom">
+          <div class="dash-meter"><span>PHASE DASH</span><div class="dash-track"><div id="dashFill"></div></div><small id="dashText">READY [SPACE]</small></div>
+          <div class="objective"><span class="objective-dot"></span><span id="objectiveText">ELIMINATE ALL HOSTILES</span></div>
+          <div class="weapon-label"><span>WEAPON SYSTEM</span><b>PULSE CANNON <i>◆◆◆</i></b></div>
+        </div>
+        <button id="pauseBtn" class="pause-btn">Ⅱ <span>PAUSE</span></button>
+      </div>
+      <div id="pauseOverlay" class="game-overlay hidden"><div class="overlay-card"><div class="eyebrow"><span></span> SYSTEMS STANDBY</div><h2>MISSION <em>PAUSED</em></h2><p>Your signal is holding. Take a breath, pilot.</p><button id="resumeBtn" class="primary-btn full-btn">RESUME MISSION <b>▶</b></button><button id="restartBtn" class="secondary-btn full-btn">RESTART MISSION</button><div class="credit-line">PRODUCED BY <strong>APPEXIO DEVS</strong></div></div></div>
+      <div id="gameOverOverlay" class="game-overlay hidden"><div class="overlay-card"><div class="eyebrow danger"><span></span> SIGNAL LOST</div><h2>THE VOID <em>CLAIMS.</em></h2><p id="finalMessage">The Vanguard has fallen, but the signal remains.</p><div class="results"><div><span>FINAL SCORE</span><b id="finalScore">000000</b></div><div><span>SECTORS CLEARED</span><b id="finalWave">01</b></div><div><span>HOSTILES DOWN</span><b id="finalKills">0</b></div></div><button id="playAgainBtn" class="primary-btn full-btn">RE-ENTER THE VOID <b>↗</b></button><button id="menuBtn" class="secondary-btn full-btn">RETURN TO BASE</button><div class="credit-line">A GAME BY <strong>APPEXIO DEVS</strong></div></div></div>
+    </section>
+    <footer class="site-footer"><span>© 2026 APPEXIO DEVS</span><span>BUILT FOR THE BRAVE <b>✦</b></span><span>NO SIGNAL. NO MERCY.</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
