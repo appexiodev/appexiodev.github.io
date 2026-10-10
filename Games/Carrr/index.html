@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>APEX DRIFT — AppeXio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <div id="game-root">
+    <div id="scene"></div>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="AppeXio home"><span class="brand-mark">A<span>×</span></span><span class="brand-name">APPE<span>XIO</span><small>ARCADE DIVISION</small></span></a>
+      <div class="top-center"><span class="live-dot"></span> NEON DISTRICT <i> / </i> NIGHT RUN</div>
+      <button id="sound-btn" class="icon-btn" aria-label="Toggle sound">♪ <span>SOUND ON</span></button>
+    </header>
+    <section id="hud" class="hud hidden">
+      <div class="hud-left"><div class="eyebrow">DISTANCE</div><div class="big-value"><span id="distance">0000</span><small> M</small></div></div>
+      <div class="speedometer"><div class="speed-ring"><span id="speed">0</span><small>KM/H</small></div></div>
+      <div class="hud-right"><div class="eyebrow">RUN SCORE</div><div class="big-value" id="score">000000</div><div class="nitro-wrap"><span>NITRO</span><div class="nitro-track"><div id="nitro-fill"></div></div></div></div>
+      <div id="warning" class="warning hidden">COLLISION — GET BACK IN THE RUN</div>
+    </section>
+    <section id="menu" class="screen menu-screen">
+      <div class="menu-grid"></div>
+      <div class="menu-copy"><div class="season-tag"><span></span> STREET SERIES 01</div><h1>APEX<br><em>DRIFT</em></h1><p class="tagline">OWN THE ROAD. <b>RULE THE NIGHT.</b></p><p class="intro">Push the limit through a living neon city. Thread the traffic, hit the nitro, and make every second count.</p>
+        <div class="menu-actions"><button id="start-btn" class="primary-btn"><span>START ENGINE</span><b>↗</b></button><div class="best-score">PERSONAL BEST <strong id="best-score">000000</strong></div></div>
+        <div class="controls"><div><kbd>←</kbd><kbd>→</kbd><span>STEER</span></div><div><kbd>↑</kbd><span>ACCELERATE</span></div><div><kbd>↓</kbd><span>BRAKE</span></div><div><kbd>SHIFT</kbd><span>NITRO</span></div></div>
+      </div>
+      <div class="menu-side"><div class="side-line"></div><span class="vertical-label">HIGH PERFORMANCE / NO LIMITS</span><div class="edition">APX-01 <span>SUPERCAR</span></div></div>
+      <div class="bottom-brand"><span>DEVELOPED BY APPEXIO DEVS</span><span>PRODUCED BY APPEXIO <b>© 2026</b></span></div>
+    </section>
+    <section id="pause" class="screen modal-screen hidden"><div class="modal-card"><div class="season-tag"><span></span> PIT STOP</div><h2>TAKE A<br><em>BREATHER.</em></h2><p>Your run is paused. The city can wait.</p><button id="resume-btn" class="primary-btn"><span>RESUME RUN</span><b>↗</b></button><button id="quit-btn" class="text-btn">RETURN TO GARAGE</button></div></section>
+    <section id="gameover" class="screen modal-screen hidden"><div class="modal-card"><div class="season-tag"><span></span> RUN COMPLETE</div><h2>WALLS<br><em>WON.</em></h2><p>You pushed hard. The streets pushed back.</p><div class="results"><div><small>DISTANCE</small><strong id="final-distance">0 M</strong></div><div><small>RUN SCORE</small><strong id="final-score">0</strong></div></div><button id="retry-btn" class="primary-btn"><span>RACE AGAIN</span><b>↗</b></button><button id="garage-btn" class="text-btn">RETURN TO GARAGE</button></div></section>
+    <div class="mobile-controls"><button id="left-touch">◀</button><button id="right-touch">▶</button><button id="nitro-touch">N₂O</button></div>
+    <footer class="game-footer"><span>APEX DRIFT <i>—</i> CITY NIGHT RUN</span><span>BUILT FOR THE BOLD <b>◆</b></span></footer>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
