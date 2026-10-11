@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A-Soundscape — Discover sounds</title>
+<meta name="description" content="A sound discovery library with playable ambient effects and audio previews.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="A-Soundscape home"><span class="brand-mark">≋</span><span>A-Soundscape</span></a>
+  <nav class="nav"><a class="active" href="#explore">Explore</a><a href="#categories">Categories</a><a href="#about">About</a></nav>
+  <div class="header-actions"><button class="text-btn" id="savedToggle">♡ Saved <span id="savedCount">0</span></button><button class="upload-btn" id="apiSettingsBtn" type="button">Browse Open Sounds ↗</button></div>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+</header>
+<main>
+  <section class="hero">
+    <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="live-dot"></span> YOUR NEXT SOUND STARTS HERE</div>
+      <h1>Find the sound<br>you <em>feel.</em></h1>
+      <p>Explore a world of field recordings, tiny details, big atmospheres, and everything in between.</p>
+      <form class="searchbar" id="searchForm"><span class="search-icon">⌕</span><input id="searchInput" placeholder="Search sounds, moods, places..." autocomplete="off"><button type="submit">Search <span>→</span></button></form>
+      <div class="popular"><span>POPULAR:</span><button data-search="rain">rain</button><button data-search="nature">nature</button><button data-search="cinematic">cinematic</button><button data-search="ambient">ambient</button></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="art-ring ring-a"></div><div class="art-ring ring-b"></div><div class="art-ring ring-c"></div>
+      <div class="art-core"><span>♫</span></div>
+      <div class="floating-tag tag-top">✦ 100,000s of sounds</div><div class="floating-tag tag-bottom"><span class="mini-wave">▂▅▃▇▅▂▆▃</span> LISTEN TO THE WORLD</div>
+    </div>
+  </section>
+  <section class="stats-strip"><div><strong>∞</strong><span>OPEN SOUND CATALOG</span></div><i></i><div><strong>∞</strong><span>WAYS TO EXPLORE</span></div><i></i><div><strong>API</strong><span>LIVE SOUND SEARCH</span></div><div class="strip-note">Made for curious ears <span>✳</span></div></section>
+  <section class="content-section" id="explore">
+    <div class="section-heading"><div><div class="eyebrow dark-eyebrow">THE OPEN SOUND LIBRARY</div><h2 id="sectionTitle">Explore sounds<span>.</span></h2><p class="section-subtitle" id="apiStatus">Searches open-licensed audio sources through a local server — no API key required.</p></div><div class="view-controls"><button class="filter-chip selected" data-filter="all">All sounds</button><button class="filter-chip" data-filter="nature">Nature</button><button class="filter-chip" data-filter="music">Music</button><button class="filter-chip" data-filter="effects">Effects</button></div></div>
+    <div class="library-toolbar"><span id="resultCount">Showing 8 sounds</span><label>Catalog <select id="sourceSelect"><option value="all">All catalogs (recommended)</option><option value="openverse">Openverse</option><option value="archive">Internet Archive</option><option value="commons">Wikimedia Commons</option></select></label><label>Sort by <select id="sortSelect"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="duration">Duration</option></select></label></div>
+    <div class="sound-grid" id="soundGrid"></div>
+    <div class="empty-state" id="emptyState" hidden><div>◌</div><h3>No sounds found</h3><p>Try another search or switch categories.</p><button class="reset-btn" id="resetSearch">Clear filters</button></div><div class="load-more-wrap"><button class="reset-btn" id="loadMoreBtn" hidden>Load more sounds ↓</button></div>
+  </section>
+  <section class="quote-banner" id="categories"><div class="quote-symbol">“</div><div><p>Every place has a soundtrack.<br><em>What will you discover?</em></p><span>LISTEN CLOSER · LOOK FURTHER</span></div><div class="quote-waves">▂ ▄ ▆ ▃ ▇ ▅ ▂ ▆ ▄ ▇ ▃ ▅ ▂</div></section>
+  <section class="about-section" id="about"><div><div class="eyebrow dark-eyebrow">A LITTLE ABOUT US</div><h2>Made for the<br>sound <em>seekers.</em></h2></div><div class="about-copy"><p>A-Soundscape searches Openverse, Internet Archive, and Wikimedia Commons together, with individual catalog options when you want to explore one source. Search by keyword, play available recordings, and open the original source page for details and rights information.</p><p>Results load in pages to keep browsing fast. Audio rights vary by item, so check each recording’s license and usage terms before reusing it.</p><a href="#explore" class="inline-link">Back to the library <span>↗</span></a></div></section>
+</main>
+<footer><a class="brand footer-brand" href="#"><span class="brand-mark">≋</span><span>A-Soundscape</span></a><span>Curated for curious ears.</span><span>Search powered by Openverse + Internet Archive + Wikimedia Commons · 2026</span></footer>
+<div class="now-playing" id="nowPlaying" aria-live="polite"><div class="np-art">♫</div><div class="np-info"><strong id="npTitle">Nothing playing</strong><span id="npMeta">Choose a sound to begin</span></div><button id="npPlay" aria-label="Play or pause">▶</button><div class="np-progress"><span id="npProgress"></span></div><button id="npClose" aria-label="Close player">×</button></div>
+<div class="api-modal" id="apiModal" hidden><div class="api-dialog"><button class="api-close" id="apiClose" aria-label="Close">×</button><div class="eyebrow dark-eyebrow">LIVE CATALOG CONNECTION</div><h2>Browse <em>Open Sounds.</em></h2><p>A-Soundscape searches Openverse, Internet Archive, and Wikimedia Commons through a local server adapter. Catalogs have their own rate limits and licensing rules; no API key is required for these sources.</p><div class="api-actions"><a href="https://openverse.org/" target="_blank" rel="noopener">Explore Openverse ↗</a><button id="saveApiKey">Search catalog</button></div><small>The catalog contains many kinds of audio, not every item is a sound effect, and rights vary. Open the source item to review its license before reusing a recording.</small></div></div><script src="app.js"></script>
+</body>
+</html>
