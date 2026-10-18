@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Available Projects | AppexioDevs</title>
+  <style>
+    :root {
+      --bg: #080d1b;
+      --panel: rgba(18, 26, 48, .78);
+      --panel-solid: #111a30;
+      --text: #f4f7ff;
+      --muted: #a5b0c9;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --line: rgba(173, 190, 230, .15);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 12% 0%, rgba(124, 58, 237, .22), transparent 34%),
+        radial-gradient(ellipse at 88% 14%, rgba(6, 182, 212, .14), transparent 28%),
+        var(--bg);
+    }
+    body.modal-open { overflow: hidden; }
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .loader-screen {
+      position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
+      background: #080d1b; transition: opacity .35s ease, visibility .35s ease;
+    }
+    .loader-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-wrap { display: grid; justify-items: center; gap: 17px; }
+    .spinner {
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 4px solid rgba(255,255,255,.12); border-top-color: var(--accent-2);
+      border-right-color: var(--accent); animation: spin .8s linear infinite;
+      box-shadow: 0 0 30px rgba(34,211,238,.12);
+    }
+    .brand-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+    .loader-label { color: #c7d2fe; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .site-header {
+      width: min(1180px, calc(100% - 40px)); margin: auto; padding: 26px 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white;
+      box-shadow: 0 8px 28px rgba(139,92,246,.24); font-size: 1.1rem;
+    }
+    .brand-name { font-size: 1.05rem; }
+    .brand-name span { color: #a5b4fc; }
+    .header-pill {
+      border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px;
+      color: #c5d0e8; font-size: .8rem; background: rgba(255,255,255,.025);
+    }
+    main { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .hero { text-align: center; padding: 66px 0 42px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+      border: 1px solid rgba(139,92,246,.32); border-radius: 999px;
+      background: rgba(139,92,246,.1); color: #c4b5fd; font-size: .78rem;
+      font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 12px #34d399; }
+    h1 {
+      margin: 22px 0 15px; font-size: clamp(2.25rem, 6vw, 4.5rem);
+      line-height: 1.04; letter-spacing: -.065em;
+    }
+    h1 .gradient {
+      background: linear-gradient(100deg, #c4b5fd 10%, #67e8f9 90%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { max-width: 640px; margin: 0 auto; color: var(--muted); line-height: 1.8; font-size: 1rem; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 12px 0 22px; }
+    .section-title { margin: 0; font-size: 1.15rem; letter-spacing: -.025em; }
+    .project-count { color: var(--muted); font-size: .85rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; padding-bottom: 70px; }
+    .project-card {
+      position: relative; min-width: 0; overflow: hidden; cursor: pointer;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(23,34,61,.92), rgba(13,19,36,.92));
+      box-shadow: 0 14px 40px rgba(0,0,0,.12);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      animation: rise .55s both;
+    }
+    .project-card:hover, .project-card:focus-visible {
+      transform: translateY(-7px); border-color: rgba(103,232,249,.5);
+      box-shadow: 0 22px 55px rgba(0,0,0,.3), 0 0 0 1px rgba(103,232,249,.08);
+      outline: none;
+    }
+    .project-art {
+      height: 185px; position: relative; display: grid; place-items: center; overflow: hidden;
+      background: var(--art-bg, linear-gradient(135deg, #312e81, #0e7490));
+    }
+    .project-art::before, .project-art::after {
+      content: ""; position: absolute; border: 1px solid rgba(255,255,255,.18);
+      width: 170px; height: 170px; border-radius: 40px; transform: rotate(35deg);
+    }
+    .project-art::after { width: 120px; height: 120px; border-radius: 30px; transform: rotate(55deg); }
+    .project-image {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block; transition: transform .35s ease;
+    }
+    .project-card:hover .project-image { transform: scale(1.045); }
+    .project-image::selection { background: transparent; }
+    .art-icon {
+      position: relative; z-index: 1; display: grid; place-items: center;
+      width: 82px; height: 82px; border-radius: 24px; font-size: 2.3rem;
+      background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(10px); box-shadow: 0 12px 35px rgba(0,0,0,.2);
+    }
+    .card-open {
+      position: absolute; top: 13px; right: 13px; z-index: 2; border-radius: 999px;
+      padding: 7px 10px; background: rgba(5,10,25,.5); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-size: .72rem; backdrop-filter: blur(10px);
+    }
+    .card-body { padding: 19px; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 11px; }
+    .tag { color: #a5f3fc; background: rgba(34,211,238,.09); border: 1px solid rgba(34,211,238,.18); border-radius: 999px; padding: 5px 9px; font-size: .7rem; }
+    .status { color: #86efac; font-size: .7rem; white-space: nowrap; }
+    .project-card h3 { margin: 0 0 8px; font-size: 1.13rem; letter-spacing: -.025em; }
+    .project-card p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.65; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); color: #cbd5e1; font-size: .78rem; }
+    .arrow { color: #67e8f9; font-size: 1.1rem; transition: transform .2s; }
+    .project-card:hover .arrow { transform: translateX(4px); }
+    footer { border-top: 1px solid var(--line); padding: 24px 20px; text-align: center; color: #7f8ba8; font-size: .82rem; }
+    footer strong { color: #c4b5fd; }
+    .modal {
+      position: fixed; inset: 0; z-index: 100; padding: 24px; display: grid; place-items: center;
+      background: rgba(3,6,15,.78); backdrop-filter: blur(12px);
+      opacity: 0; visibility: hidden; transition: opacity .22s ease, visibility .22s ease;
+    }
+    .modal.open { opacity: 1; visibility: visible; }
+    .modal-panel {
+      width: min(780px, 100%); max-height: min(90vh, 850px); overflow: auto; position: relative;
+      border: 1px solid rgba(173,190,230,.2); border-radius: 26px;
+      background: #10182d; box-shadow: 0 30px 100px rgba(0,0,0,.55);
+      transform: translateY(12px) scale(.985); transition: transform .22s ease;
+    }
+    .modal.open .modal-panel { transform: translateY(0) scale(1); }
+    .modal-art { min-height: 235px; display: grid; place-items: center; position: relative; overflow: hidden; background: var(--art-bg, linear-gradient(135deg,#312e81,#0e7490)); }
+    .modal-art .art-icon { width: 100px; height: 100px; font-size: 2.8rem; border-radius: 28px; }
+    .close-modal {
+      position: absolute; z-index: 5; top: 14px; right: 14px; width: 39px; height: 39px;
+      display: grid; place-items: center; border-radius: 50%; color: white; cursor: pointer;
+      background: rgba(5,10,25,.55); border: 1px solid rgba(255,255,255,.2); font-size: 1.35rem;
+    }
+    .modal-content { padding: 27px clamp(20px, 5vw, 38px) 34px; }
+    .modal-content h2 { margin: 12px 0 10px; font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -.04em; }
+    .modal-description { color: #b3bfd8; line-height: 1.8; margin: 0; }
+    .detail-label { color: #e2e8f0; font-size: .85rem; font-weight: 750; margin: 23px 0 10px; }
+    .features { display: flex; flex-wrap: wrap; gap: 8px; }
+    .feature { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); color: #cbd5e1; font-size: .8rem; background: rgba(255,255,255,.025); }
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 27px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 17px; border-radius: 12px; font-weight: 750; font-size: .88rem; border: 1px solid transparent; cursor: pointer; transition: transform .2s, opacity .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #08101d; background: linear-gradient(100deg, #a78bfa, #67e8f9); }
+    .btn-secondary { color: #e2e8f0; background: rgba(255,255,255,.04); border-color: var(--line); }
+    .btn.disabled { opacity: .45; cursor: not-allowed; }
+    .hint { margin: 12px 0 0; color: #7f8ba8; font-size: .76rem; }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Keep three cards per row even on phones, as requested. */
+    @media (max-width: 700px) {
+      .site-header, main { width: calc(100% - 24px); }
+      .site-header { padding: 17px 0; }
+      .header-pill { font-size: .68rem; padding: 7px 9px; }
+      .brand-mark { width: 32px; height: 32px; border-radius: 10px; }
+      .brand-name { font-size: .9rem; }
+      .hero { padding: 48px 0 32px; }
+      .hero p { font-size: .88rem; padding: 0 5px; }
+      .projects-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; padding-bottom: 48px; }
+      .project-art { height: 100px; }
+      .project-art::before { width: 95px; height: 95px; border-radius: 25px; }
+      .project-art::after { width: 65px; height: 65px; border-radius: 18px; }
+      .art-icon { width: 48px; height: 48px; border-radius: 15px; font-size: 1.45rem; }
+      .card-open { top: 6px; right: 6px; padding: 4px 6px; font-size: .57rem; }
+      .card-body { padding: 10px 9px; }
+      .card-meta { display: block; margin-bottom: 7px; }
+      .tag { display: inline-block; font-size: .58rem; padding: 4px 6px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+      .status { display: none; }
+      .project-card h3 { font-size: .76rem; line-height: 1.3; margin-bottom: 5px; overflow-wrap: anywhere; }
+      .project-card p { font-size: .66rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .card-footer { margin-top: 9px; padding-top: 8px; font-size: .6rem; }
+      .arrow { font-size: .85rem; }
+      .toolbar { margin-top: 5px; }
+      .section-title { font-size: .98rem; }
+      .project-count { font-size: .7rem; }
+      .modal { padding: 12px; }
+      .modal-art { min-height: 175px; }
+      .modal-content { padding: 20px; }
+    }
+    @media (max-width: 360px) {
+      .projects-grid { gap: 6px; }
+      .card-body { padding: 8px 7px; }
+      .project-card h3 { font-size: .7rem; }
+      .project-card p { font-size: .61rem; }
+      .tag { font-size: .53rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader-screen" id="loader" aria-label="Loading projects">
+    <div class="loader-wrap"><div class="spinner"></div><div class="loader-label">Loading projects</div></div>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="AppexioDevs home">
+      <img src="https://appexio.github.io/favicon.png" alt="AppexioDevs Logo" class="brand-logo">
+      <span class="brand-name">Appexio<span>Devs</span></span>
+    </a>
+    <div class="header-pill">★ Digital products &amp; projects</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Built with purpose</div>
+      <h1>Available Projects <span class="gradient">/ Products</span></h1>
+      <p>Explore tools, products, and digital experiences crafted by AppexioDevs. Select any project to discover its features and open or download it.</p>
+    </section>
+
+    <div class="toolbar">
+      <h2 class="section-title">Spin It:</h2>
+      <span class="project-count" id="projectCount">06 projects</span>
+    </div>
+    <section class="projects-grid" id="projectsGrid" aria-label="Available projects"></section>
+  </main>
+
+  <footer>Designed &amp; developed by <strong>AppexioDevs</strong> · Building useful digital experiences.</footer>
+
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <button class="close-modal" id="closeModal" aria-label="Close project details">×</button>
+      <div class="modal-art" id="modalArt"><div class="art-icon" id="modalIcon">✦</div></div>
+      <div class="modal-content">
+        <span class="tag" id="modalCategory">Product</span>
+        <h2 id="modalTitle">Project title</h2>
+        <p class="modal-description" id="modalDescription"></p>
+        <div class="detail-label">Highlights</div>
+        <div class="features" id="modalFeatures"></div>
+        <div class="modal-actions">
+          <a class="btn btn-primary" id="visitButton" href="#" target="_blank" rel="noopener noreferrer">↗ Visit project</a>
+          <a class="btn btn-secondary" id="downloadButton" href="#" download>↓ Download</a>
+        </div>
+        <p class="hint" id="modalHint">Replace the sample project links with your real project URLs and download files.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+      CUSTOMIZE YOUR PROJECTS HERE:
+      - visit: project website or demo URL
+      - download: direct download URL or file path (e.g. "downloads/my-app.zip")
+      - icon and gradient are used for the card artwork; you can replace this with image: "images/project.jpg"
+    */
+    const projects = [
+      {
+        title: "Appexio - Software library", category: "Web App", icon: "▦",
+        image: "https://appexiodev.github.io/database/appexio.png",
+        short: "A modern digital marketplace platform for discovering and organizing Android apps, PC software, and games.",
+        description: "AppExio is a clean, modern marketplace designed for seamless software discovery. It aggregates Android apps, games, and PC software into a single, unified library, A modern, unified digital storefront to discover and organize Android apps, PC software, and games without the clutter, discover premium paid apps for free, alongside the most demanded tools and games for Android and PC. Clutter-free and built for discovery.",
+        features: ["Open Source Library", "Clean Search", "Millions of Softwares", "One click Download"],
+        gradient: "linear-gradient(135deg, #4c1d95, #0e7490)",
+        visit: "https://appexio.github.io", download: "#"
+      },
+      {
+        title: "Project Ultron", category: "Artificial Intelligence", icon: "✳",
+        image: "https://appexiodev.github.io/database/ultron3.png",
+        short: "A wide Concept under working | Version 1.0 launched | Download here",
+        description: "Project Ultron is an advanced artificial intelligence model designed for [insert primary purpose, e.g., predictive analytics / natural language processing / autonomous automation]. Built using [insert framework, e.g., PyTorch / TensorFlow / OpenAI API], the system focuses on [insert key feature, e.g., high-accuracy data processing / seamless agent orchestration]. The goal of this project is to create a robust, self-sustaining AI architecture capable of handling complex computational workflows with minimal latency",
+        features: ["Real-Time", "Version 1.0", "Working on Updates", "User friendly"],
+        gradient: "linear-gradient(135deg, #9d174d, #6d28d9)",
+        visit: "#", download: "https://appexiodev.github.io/database/ULTRON-AI-AppexioDevs-Configured.zip"
+      },
+      {
+        title: "Apx-Tube", category: "Entertainment", icon: "✎",
+        image: "https://appexiodev.github.io/database/apxtube.png",
+        short: "A Entertainment platform using Youtube api + many others making it a platform with millios of sources.",
+        description: "APX-Tube (Auralis) is a modern video discovery platform powered by the YouTube API, designed to deliver a smooth and intuitive video browsing experience. Featuring a clean interface and seamless integration with YouTube, Auralis makes discovering and exploring video content simple and convenient. Built by AppexioDevs, it combines modern design with YouTube-powered functionality to create a streamlined video experience.",
+        features: ["Youtube API", "including Anime", "Far library", "Songs"],
+        gradient: "linear-gradient(135deg, #0369a1, #0f766e)",
+        visit: "https://apxtube.github.io", download: "#"
+      },
+      {
+        title: "Neon Vanguard", category: "Games", icon: "◇",
+        image: "https://appexiodev.github.io/Games/Mouser/Screenshot3.png",
+        short: "A Shooting Web-based game by AppexioDevs",
+        description: "A web based game by AppexioDevs, formaly made, as a attractive leisure game, by cursors, It is a spaceship shooting game",
+        features: ["Game", "Responsive", "shooting", "SpaceShips"],
+        gradient: "linear-gradient(135deg, #92400e, #be185d)",
+        visit: "https://appexiodev.github.io/Games/Mouser", download: "#"
+      },
+      {
+        title: "Apex-Drift", category: "Games", icon: "</>",
+        image: "https://appexiodev.github.io/Games/Carrr/Screenshot1.png",
+        short: "A web-based racing game made by AppexioDevs.",
+        description: "A web based game by AppexioDevs, formaly made, as a attractive leisure game, by animated cars, as a racing game",
+        features: ["Animated icons", "smooth", "leisure", "web-based"],
+        gradient: "linear-gradient(135deg, #1d4ed8, #4338ca)",
+        visit: "https://appexiodev.github.io/Games/Carrr", download: "#"
+      },
+      {
+        title: "A-Cursors", category: "Windows Cursors", icon: "▯",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRgMJ37TYZI7qFPscvsg0mOCvSDZASkyLUT4SVNqmlmg&s=10",
+        short: "A library including custom made, demanded, dark, colorful, and most liked vursor packs for windows enhancing the windows looks and cursor smothness",
+        description: "An open library developed by AppexioDevs including many kinds of windows cursor packs for windows 10 and 11, likely for windows 8 also, enhancing the responsiveness and looks of windows",
+        features: [".cur files", ".ani files", "Modern cursors", "Responsive"],
+        gradient: "linear-gradient(135deg, #0f766e, #4f46e5)",
+        visit: "https://a-cursors.github.io", download: "#"
+      },
+      {
+        title: "A-Pdf's", category: "Pdf-Tools", icon: "▯",
+        image: "https://appexiodev.github.io/database/a-pdf.png",
+        short: "A web-based library including pdf tools, to enhance, split etc pdf for comfortability",
+        description: "A library including tools like, pdf editor free, pdf enhancer, pdf splitter, pdf into pages, pdf into pictures, pictures into pdf, merge pdfs, etc making it much important for professional work in free.",
+        features: ["Large tools", "responsive", "smooth pdf's"],
+        gradient: "linear-gradient(135deg, #0f766e, #4f46e5)",
+        visit: "https://a-pdf.github.io", download: "#"
+      },
+      {
+        title: "A-Croppers", category: "Pidture Editor", icon: "</>",
+        image: "https://appexiodev.github.io/database/a-croppers.png",
+        short: "A web-based Picture tools like background editor, pixels, etc made by AppexioDevs.",
+        description: "A web based Platform named A-Croppers, made by AppexioDevs, including tools like pixels setter, image editor, image background changer, and image backf=ground total remover making an image---icon, removing any color from the image etc",
+        features: ["image player", "background remover", "responsive layout", "web-based"],
+        gradient: "linear-gradient(135deg, #1d4ed8, #4338ca)",
+        visit: "https://a-croppers.github.io", download: "#"
+      },
+      {
+        title: "A-Entertainment (Paused)", category: "Videos / player", icon: "</>",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT365xZV0Ob8g-4wTzZT-naB9OBxO-RXZ3tQBK5BdUW2w&s=10",
+        short: "A web-based platform named A-Entertainment made by Appexio, should be enhanced and worked on it in future but still enhancing apc-tube and ecpecially APPEXIO - SOFTWARES",
+        description: "Still broadly Focusing on APPEXIO - Softwares-- But should be updated and enhanced in future-- currently FREEZED",
+        features: ["Project PAUSED", "Entertainment videos", "to be updated", "web app"],
+        gradient: "linear-gradient(135deg, #1d4ed8, #4338ca)",
+        visit: "https://a-entertainment.github.io", download: "#"
+      }
+    ];
+
+    const grid = document.getElementById("projectsGrid");
+    const modal = document.getElementById("projectModal");
+    const loader = document.getElementById("loader");
+    let previouslyFocused = null;
+
+    function renderProjects() {
+      document.getElementById("projectCount").textContent =
+        `${String(projects.length).padStart(2, "0")} project${projects.length === 1 ? "" : "s"}`;
+      grid.innerHTML = projects.map((project, index) => `
+        <article class="project-card" tabindex="0" role="button" aria-label="View details for ${escapeHTML(project.title)}" data-index="${index}" style="animation-delay:${index * 70}ms">
+          <div class="project-art" style="--art-bg:${project.gradient}">
+            <span class="card-open">View details ↗</span>
+            ${project.image
+              ? `<img class="project-image" src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)}" loading="lazy">`
+              : `<div class="art-icon">${escapeHTML(project.icon)}</div>`}
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="tag">${escapeHTML(project.category)}</span><span class="status">● Available</span></div>
+            <h3>${escapeHTML(project.title)}</h3>
+            <p>${escapeHTML(project.short)}</p>
+            <div class="card-footer"><span>Explore project</span><span class="arrow">↗</span></div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function setActionLink(element, url, label, isDownload = false) {
+      element.classList.remove("disabled");
+      element.removeAttribute("aria-disabled");
+      element.href = url || "#";
+      if (isDownload) element.removeAttribute("download");
+      if (!url || url === "#") {
+        element.href = "#";
+        element.classList.add("disabled");
+        element.setAttribute("aria-disabled", "true");
+        element.onclick = event => event.preventDefault();
+      } else {
+        element.onclick = null;
+        if (isDownload) element.setAttribute("download", "");
+      }
+      element.innerHTML = label;
+    }
+
+    function openProject(index) {
+      const project = projects[index];
+      if (!project) return;
+      previouslyFocused = document.activeElement;
+      const modalArt = document.getElementById("modalArt");
+      modalArt.style.setProperty("--art-bg", project.gradient);
+      modalArt.querySelector(".modal-project-image")?.remove();
+      const modalIcon = document.getElementById("modalIcon");
+      if (project.image) {
+        modalIcon.style.display = "none";
+        const image = document.createElement("img");
+        image.className = "modal-project-image";
+        image.src = project.image;
+        image.alt = project.title;
+        image.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;";
+        modalArt.appendChild(image);
+      } else {
+        modalIcon.style.display = "grid";
+        modalIcon.textContent = project.icon;
+      }
+      document.getElementById("modalCategory").textContent = project.category;
+      document.getElementById("modalTitle").textContent = project.title;
+      document.getElementById("modalDescription").textContent = project.description;
+      document.getElementById("modalFeatures").innerHTML = project.features
+        .map(feature => `<span class="feature">${escapeHTML(feature)}</span>`).join("");
+
+      setActionLink(document.getElementById("visitButton"), project.visit, "↗ Visit project");
+      setActionLink(document.getElementById("downloadButton"), project.download, "↓ Download", true);
+      document.getElementById("modalHint").style.display =
+        (!project.visit || project.visit === "#") && (!project.download || project.download === "#") ? "block" : "none";
+
+      modal.classList.add("open");
+      document.body.classList.add("modal-open");
+      document.getElementById("closeModal").focus();
+    }
+
+    function closeProject() {
+      modal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+      if (previouslyFocused) previouslyFocused.focus();
+    }
+
+    grid.addEventListener("click", event => {
+      const card = event.target.closest(".project-card");
+      if (card) openProject(Number(card.dataset.index));
+    });
+    grid.addEventListener("keydown", event => {
+      if ((event.key === "Enter" || event.key === " ") && event.target.matches(".project-card")) {
+        event.preventDefault();
+        openProject(Number(event.target.dataset.index));
+      }
+    });
+    document.getElementById("closeModal").addEventListener("click", closeProject);
+    modal.addEventListener("click", event => { if (event.target === modal) closeProject(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape" && modal.classList.contains("open")) closeProject(); });
+
+    renderProjects();
+    window.addEventListener("load", () => {
+      setTimeout(() => loader.classList.add("hidden"), 1000);
+    });
+    // Fallback in case the load event has already fired before this script runs.
+    if (document.readyState === "complete") setTimeout(() => loader.classList.add("hidden"), 1000);
+  </script>
+</body>
+</html>
