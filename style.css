@@ -522,6 +522,39 @@ img {
     transform: translateY(-2px);
 }
 
+.available-products-fixed {
+position: fixed;
+bottom: 25px;
+left: 25px;
+z-index: 9999;
+display: inline-flex;
+align-items: center;
+gap: 10px;
+padding: 14px 20px;
+background: #6c5ce7;
+color: #ffffff;
+text-decoration: none;
+font-size: 14px;
+font-weight: 700;
+border-radius: 12px;
+box-shadow: 0 6px 24px rgba(108, 92, 231, 0.35);
+transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.available-products-fixed:hover {
+background: #5846d8;
+transform: translateY(-3px);
+}
+
+@media (max-width: 480px) {
+.available-products-fixed {
+bottom: 15px;
+left: 15px;
+padding: 12px 16px;
+font-size: 12px;
+}
+}
+
 
 /* =========================================================
    HAMBURGER
