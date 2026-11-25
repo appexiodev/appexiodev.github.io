@@ -1,0 +1,4284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>AppExio Admin</title>
+
+<meta
+    name="robots"
+    content="noindex,nofollow"
+>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+
+    --bg: #080a0f;
+    --panel: #10141c;
+    --card: #151a23;
+    --input: #0c1017;
+
+    --border: rgba(255,255,255,.08);
+
+    --text: #f5f7fb;
+    --muted: #9299a8;
+
+    --primary: #7c5cff;
+    --primary2: #5d7cff;
+
+    --green: #31d47c;
+    --red: #ff5c6c;
+    --yellow: #ffc857;
+
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family: "Inter", sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(124,92,255,.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 10% 100%,
+            rgba(93,124,255,.07),
+            transparent 30%
+        ),
+        var(--bg);
+
+    min-height: 100vh;
+
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    height: 72px;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 4%;
+
+    background:
+        rgba(8,10,15,.88);
+
+    backdrop-filter: blur(20px);
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+.header-inner {
+
+    width: 100%;
+    max-width: 1450px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.logo {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+    font-weight: 800;
+
+}
+
+.logo-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+}
+
+.logo span {
+    color: #9c87ff;
+}
+
+.admin-label {
+
+    padding: 5px 9px;
+
+    margin-left: 4px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(124,92,255,.1);
+
+    border:
+        1px solid
+        rgba(124,92,255,.2);
+
+    color: #ad9cff;
+
+    font-size: 9px;
+    font-weight: 700;
+
+}
+
+.header-right {
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+.header-btn {
+
+    height: 38px;
+
+    padding: 0 13px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid var(--border);
+
+    background: var(--card);
+
+    color: #d9dce4;
+
+    font-size: 10px;
+    font-weight: 600;
+
+}
+
+.header-btn:hover {
+    border-color: rgba(124,92,255,.35);
+}
+
+.logout-btn:hover {
+    color: #ff8b95;
+    border-color: rgba(255,92,108,.25);
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.layout {
+
+    width: 92%;
+    max-width: 1450px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 220px 1fr;
+
+    min-height:
+        calc(100vh - 72px);
+
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+
+    padding:
+        30px 15px 30px 0;
+
+    border-right:
+        1px solid var(--border);
+
+}
+
+.sidebar-title {
+
+    color: #626978;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin:
+        10px 12px 12px;
+
+}
+
+.side-link {
+
+    width: 100%;
+
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 13px;
+
+    margin-bottom: 4px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    text-align: left;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+.side-link i {
+
+    width: 18px;
+
+    text-align: center;
+
+}
+
+.side-link.active,
+.side-link:hover {
+
+    background:
+        rgba(124,92,255,.1);
+
+    color: #b3a4ff;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+
+    padding:
+        35px 0 70px 35px;
+
+    min-width: 0;
+
+}
+
+.page-title {
+
+    margin-bottom: 25px;
+
+}
+
+.page-title h1 {
+
+    font-size: 28px;
+
+    letter-spacing: -.8px;
+
+    margin-bottom: 7px;
+
+}
+
+.page-title p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+}
+
+.stat {
+
+    padding: 17px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(16,20,28,.82);
+
+}
+
+.stat-top {
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+}
+
+.stat-icon {
+
+    width: 31px;
+    height: 31px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 8px;
+
+    background:
+        rgba(124,92,255,.1);
+
+    color: #a492ff;
+
+    font-size: 11px;
+
+}
+
+.stat-label {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+}
+
+.stat-value {
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+}
+
+
+/* =====================================================
+   MANAGEMENT TOOLBAR
+===================================================== */
+
+.management {
+
+    display: none;
+
+}
+
+.management.active {
+    display: block;
+}
+
+.toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 17px;
+
+}
+
+.search-box {
+
+    position: relative;
+
+    flex: 1;
+
+}
+
+.search-box i {
+
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #5d6573;
+
+    font-size: 11px;
+
+}
+
+.search-box input {
+
+    height: 43px;
+
+    padding-left: 37px;
+
+}
+
+
+/* =====================================================
+   APP LIST
+===================================================== */
+
+.apps-list {
+
+    display: grid;
+
+    gap: 10px;
+
+}
+
+.empty-state {
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.1);
+
+    border-radius: 15px;
+
+    color: var(--muted);
+
+}
+
+.empty-state i {
+
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 14px;
+
+    color: #4d5563;
+
+}
+
+.empty-state strong {
+
+    display: block;
+
+    color: #dce0e8;
+
+    font-size: 13px;
+
+    margin-bottom: 6px;
+
+}
+
+.empty-state span {
+
+    font-size: 9px;
+
+}
+
+
+.app-row {
+
+    display: grid;
+
+    grid-template-columns:
+        58px
+        minmax(0,1fr)
+        auto;
+
+    gap: 14px;
+
+    align-items: center;
+
+    padding: 14px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+}
+
+.app-row-icon {
+
+    width: 58px;
+    height: 58px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+
+    background: #1b202b;
+
+}
+
+.app-row-info {
+    min-width: 0;
+}
+
+.app-row-name {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+}
+
+.verified {
+
+    color: #5d9dff;
+
+    font-size: 10px;
+
+}
+
+.app-row-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+}
+
+.meta {
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background: #171d27;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+}
+
+.app-row-tags {
+
+    color: #666f7e;
+
+    font-size: 8px;
+
+    margin-top: 6px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+.app-actions {
+
+    display: flex;
+
+    gap: 7px;
+
+}
+
+.icon-btn {
+
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    border:
+        1px solid var(--border);
+
+    background: #171d27;
+
+    color: #aeb5c2;
+
+    font-size: 10px;
+
+}
+
+.icon-btn:hover {
+    border-color: rgba(124,92,255,.35);
+    color: #c8beff;
+}
+
+.icon-btn.delete:hover {
+    border-color: rgba(255,92,108,.3);
+    color: #ff7d88;
+    background: rgba(255,92,108,.06);
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-management {
+    display: block;
+}
+
+.form-management.hidden {
+    display: none;
+}
+
+.form-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        320px;
+
+    gap: 18px;
+
+}
+
+.panel {
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+}
+
+.panel-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+
+}
+
+.panel-title i {
+    color: #9a86ff;
+}
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 15px;
+
+}
+
+.field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+
+    color: #c5c9d2;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+.field label span {
+
+    color: #686f7d;
+
+    font-weight: 400;
+
+}
+
+input,
+textarea,
+select {
+
+    width: 100%;
+
+    outline: none;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--input);
+
+    color: white;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+}
+
+input,
+select {
+
+    height: 43px;
+
+    padding: 0 12px;
+
+}
+
+textarea {
+
+    min-height: 110px;
+
+    padding: 12px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+
+    border-color:
+        rgba(124,92,255,.55);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124,92,255,.08);
+
+}
+
+
+/* =====================================================
+   SCREENSHOTS
+===================================================== */
+
+.screenshot-list {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+.screenshot-field {
+
+    display: grid;
+
+    grid-template-columns:
+        35px 1fr;
+
+    gap: 10px;
+
+    align-items: center;
+
+}
+
+.shot-number {
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 9px;
+
+    display: grid;
+    place-items: center;
+
+    background: #1a2030;
+
+    color: #9d8cff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   CHECKS
+===================================================== */
+
+.checks {
+
+    display: flex;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+}
+
+.check {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #b8bdc8;
+
+    font-size: 10px;
+
+}
+
+.check input {
+
+    width: 16px;
+    height: 16px;
+
+    accent-color:
+        var(--primary);
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+}
+
+.btn {
+
+    height: 47px;
+
+    padding:
+        0 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+.btn-primary {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+    box-shadow:
+        0 10px 25px
+        rgba(124,92,255,.18);
+
+}
+
+.btn-secondary {
+
+    color: #c8ccd5;
+
+    background:
+        #181e28;
+
+    border:
+        1px solid var(--border);
+
+}
+
+.btn-danger {
+
+    color: #ff7c88;
+
+    background:
+        rgba(255,92,108,.08);
+
+    border:
+        1px solid
+        rgba(255,92,108,.15);
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+.preview-box {
+
+    position: sticky;
+
+    top: 95px;
+
+}
+
+.preview-label {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 12px;
+
+}
+
+.app-preview {
+
+    background:
+        #0c1017;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 16px;
+
+}
+
+.preview-top {
+
+    display: flex;
+
+    gap: 13px;
+
+    align-items: center;
+
+}
+
+.preview-icon {
+
+    width: 65px;
+    height: 65px;
+
+    border-radius: 16px;
+
+    object-fit: cover;
+
+    background: #1a1f29;
+
+}
+
+.preview-name {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+}
+
+.preview-developer {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+}
+
+.preview-category {
+
+    display: inline-block;
+
+    margin-top: 7px;
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(124,92,255,.1);
+
+    color: #a995ff;
+
+    font-size: 8px;
+
+}
+
+.preview-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 7px;
+
+    margin-top: 15px;
+
+}
+
+.preview-info div {
+
+    padding: 9px;
+
+    border-radius: 8px;
+
+    background: #131821;
+
+}
+
+.preview-info strong {
+
+    display: block;
+
+    font-size: 10px;
+
+    margin-bottom: 3px;
+
+}
+
+.preview-info span {
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    max-width: 350px;
+
+    padding:
+        13px 17px;
+
+    border-radius: 10px;
+
+    background:
+        #181e28;
+
+    border:
+        1px solid var(--border);
+
+    color: white;
+
+    font-size: 10px;
+
+    transform:
+        translateY(100px);
+
+    opacity: 0;
+
+    transition: .3s;
+
+    z-index: 9999;
+
+}
+
+.toast.show {
+
+    transform:
+        translateY(0);
+
+    opacity: 1;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:1000px) {
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding:
+            30px 0 60px;
+    }
+
+}
+
+@media(max-width:800px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-box {
+        position: static;
+    }
+
+}
+
+@media(max-width:650px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: auto;
+    }
+
+    .app-row {
+        grid-template-columns:
+            48px 1fr;
+    }
+
+    .app-row-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .app-actions {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .app-actions .icon-btn {
+        flex: 1;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+@media(max-width:500px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .header-btn span {
+        display: none;
+    }
+
+}
+
+
+/* =====================================================
+   ENTERTAINMENT CONTROL PANEL — isolated additions
+===================================================== */
+.fe-ent-admin{display:block;min-width:0}.fe-ent-admin.hidden{display:none!important}.fe-ent-admin-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 22px;padding:23px;border:1px solid rgba(186,207,255,.13);border-radius:18px;background:radial-gradient(ellipse at 92% 0%,rgba(124,92,255,.14),transparent 35%),linear-gradient(145deg,rgba(24,30,47,.94),rgba(13,17,27,.94));box-shadow:inset 0 1px rgba(255,255,255,.055)}.fe-ent-admin-eyebrow{display:block;margin-bottom:10px;color:#a5a0ff;font-size:8px;font-weight:900;letter-spacing:1.8px}.fe-ent-admin-intro h2{margin:0 0 6px;font-size:25px;letter-spacing:-.8px}.fe-ent-admin-intro p{max-width:670px;color:#929caf;font-size:10px;line-height:1.65}.fe-ent-admin-add{flex:none}.fe-ent-admin-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}.fe-ent-admin-stats>div{padding:16px;border:1px solid rgba(213,225,255,.09);border-radius:14px;background:linear-gradient(140deg,rgba(25,32,49,.88),rgba(14,19,29,.9))}.fe-ent-admin-stats span{display:block;margin-bottom:8px;color:#858fa5;font-size:9px}.fe-ent-admin-stats strong{color:#f4f6ff;font-size:24px;letter-spacing:-.7px}.fe-ent-admin-stats>div:nth-child(2) strong{color:#ffdb8d}.fe-ent-admin-stats>div:nth-child(3) strong{color:#98ffe5}.fe-ent-admin-toolbar{display:flex;gap:10px;margin-bottom:14px}.fe-ent-admin-search{position:relative;flex:1}.fe-ent-admin-search>i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#78829a;font-size:11px}.fe-ent-admin-search input{height:44px;padding-left:39px}.fe-ent-admin-toolbar select{width:175px;height:44px;padding:0 12px}.fe-ent-admin-list{display:grid;gap:10px}.fe-ent-admin-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:14px;padding:13px;border:1px solid rgba(220,230,255,.09);border-radius:15px;background:linear-gradient(135deg,rgba(23,29,44,.94),rgba(13,18,27,.96));transition:border-color .2s}.fe-ent-admin-row:hover{border-color:rgba(131,255,226,.23)}.fe-ent-admin-poster{width:62px;height:77px;object-fit:cover;border:1px solid rgba(220,230,255,.12);border-radius:9px;background:linear-gradient(140deg,#28314d,#172033)}.fe-ent-admin-row-info{min-width:0}.fe-ent-admin-row-info h3{margin:0 0 7px;color:#f3f5ff;font-size:12px;font-weight:800}.fe-ent-admin-row-meta{display:flex;flex-wrap:wrap;gap:5px}.fe-ent-admin-row-meta span{padding:4px 7px;border:1px solid rgba(212,225,255,.08);border-radius:6px;background:rgba(255,255,255,.025);color:#9ba6be;font-size:8px}.fe-ent-admin-row-meta .featured{color:#ffdc91;border-color:rgba(255,220,145,.15)}.fe-ent-admin-row-meta .recommended{color:#9dffe8;border-color:rgba(157,255,232,.15)}.fe-ent-admin-row-info p{margin-top:6px;overflow:hidden;color:#77829b;font-size:8px;text-overflow:ellipsis;white-space:nowrap}.fe-ent-admin-row-actions{display:flex;gap:6px}.fe-ent-admin-row-actions .icon-btn{width:34px;height:34px}.fe-ent-admin-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;padding:25px;text-align:center;border:1px dashed rgba(215,227,255,.12);border-radius:15px;color:#8792ab}.fe-ent-admin-empty>i{margin-bottom:10px;color:#a79fff;font-size:23px}.fe-ent-admin-empty strong{margin-bottom:5px;color:#dbe1f1;font-size:12px}.fe-ent-admin-empty span{max-width:440px;font-size:9px;line-height:1.6}.fe-ent-admin .panel{border-color:rgba(217,228,255,.09);background:linear-gradient(145deg,rgba(18,23,36,.96),rgba(12,16,25,.98))}.fe-ent-admin .panel-title{color:#f2f4ff}.fe-ent-admin .panel-title i{color:#a6a0ff}.fe-ent-check-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}.fe-ent-check-row>label{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid rgba(219,229,255,.1);border-radius:11px;background:rgba(255,255,255,.025);cursor:pointer}.fe-ent-check-row input{width:17px;height:17px;flex:none;accent-color:#8d82ff}.fe-ent-check-row strong,.fe-ent-check-row small{display:block}.fe-ent-check-row strong{color:#e9edff;font-size:10px}.fe-ent-check-row small{margin-top:4px;color:#858fa7;font-size:8px;line-height:1.4}.fe-ent-form-help{margin-top:14px;color:#8a96af;font-size:9px;line-height:1.65}.fe-ent-form-help i{margin-right:5px;color:#a4a0ff}.fe-ent-form-actions{display:flex;justify-content:flex-end;gap:9px;margin-bottom:25px}.fe-ent-form-actions .btn{min-width:135px}.fe-ent-admin .field.full{grid-column:1/-1}.fe-ent-admin textarea{min-height:100px}.fe-ent-admin .field label{line-height:1.5}.fe-ent-admin-nav{display:flex!important;align-items:center}.fe-ent-admin-nav.active{background:rgba(124,92,255,.1)!important;border-color:rgba(124,92,255,.22)!important;color:#b3a4ff!important}.fe-ent-admin .btn-secondary{background:#181e2b;border-color:rgba(219,229,255,.12);color:#c7cede}.fe-ent-admin .btn-secondary:hover{border-color:rgba(171,163,255,.32);color:#fff}
+@media(max-width:1000px){.fe-ent-admin-intro{align-items:flex-start}.fe-ent-admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.fe-ent-admin-row{grid-template-columns:54px minmax(0,1fr)}.fe-ent-admin-poster{width:54px;height:68px}.fe-ent-admin-row-actions{grid-column:2;justify-content:flex-start}.fe-ent-admin-row-actions .icon-btn{width:auto;min-width:68px;padding:0 10px;display:flex;gap:6px;align-items:center}.fe-ent-admin-row-actions .icon-btn:after{content:attr(title);font-size:8px}}
+@media(max-width:650px){.fe-ent-admin-intro{flex-direction:column;padding:17px}.fe-ent-admin-intro h2{font-size:22px}.fe-ent-admin-add{width:100%}.fe-ent-admin-toolbar{flex-direction:column}.fe-ent-admin-toolbar select{width:100%}.fe-ent-admin-stats strong{font-size:21px}.fe-ent-check-row{grid-template-columns:1fr}.fe-ent-admin-row{gap:9px;padding:10px}.fe-ent-admin-row-info h3{font-size:11px}.fe-ent-admin-row-actions .icon-btn{flex:1;justify-content:center}.fe-ent-form-actions{flex-direction:column-reverse}.fe-ent-form-actions .btn{width:100%}}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-brands fa-android"></i>
+</div>
+
+APP<span>EXIO</span>
+
+<div class="admin-label">
+ADMIN
+</div>
+
+</div>
+
+
+<div class="header-right">
+
+<button
+    class="header-btn"
+    onclick="window.open('../index.html','_blank')"
+>
+
+<i class="fa-solid fa-globe"></i>
+
+<span>Website</span>
+
+</button>
+</div>
+
+</div>
+
+</header>
+
+
+
+<div class="layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+<div class="sidebar-title">
+Management
+</div>
+
+
+<button
+    class="side-link"
+    id="showDashboardBtn"
+>
+
+<i class="fa-solid fa-layer-group"></i>
+
+Applications
+
+</button>
+
+
+<button
+    class="side-link active"
+    id="showAddBtn"
+>
+
+<i class="fa-solid fa-plus"></i>
+
+Add Application
+
+</button>
+
+<div class="sidebar-title">Entertainment</div>
+<button class="side-link fe-ent-admin-nav" id="showEntertainmentBtn" type="button"><i class="fa-solid fa-clapperboard"></i>Entertainment Library</button>
+<button class="side-link fe-ent-admin-nav" id="showAddEntertainmentBtn" type="button"><i class="fa-solid fa-circle-plus"></i>Add Entertainment</button>
+
+<div class="sidebar-title">
+Website
+</div>
+
+
+<button
+    class="side-link"
+    onclick="window.open('../index.html','_blank')"
+>
+
+<i class="fa-solid fa-globe"></i>
+
+Open AppExio
+
+</button>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<div class="page-title">
+
+<h1 id="pageHeading">
+Applications
+</h1>
+
+<p id="pageDescription">
+Manage all applications published on AppExio.
+</p>
+
+</div>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div class="stat-label">
+Total Apps
+</div>
+
+<div class="stat-icon">
+<i class="fa-solid fa-mobile-screen-button"></i>
+</div>
+
+</div>
+
+<div
+    class="stat-value"
+    id="totalApps"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div class="stat-label">
+Featured
+</div>
+
+<div class="stat-icon">
+<i class="fa-solid fa-star"></i>
+</div>
+
+</div>
+
+<div
+    class="stat-value"
+    id="featuredApps"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div class="stat-label">
+Verified
+</div>
+
+<div class="stat-icon">
+<i class="fa-solid fa-circle-check"></i>
+</div>
+
+</div>
+
+<div
+    class="stat-value"
+    id="verifiedApps"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div class="stat-label">
+Categories
+</div>
+
+<div class="stat-icon">
+<i class="fa-solid fa-grid-2"></i>
+</div>
+
+</div>
+
+<div
+    class="stat-value"
+    id="categoryCount"
+>
+0
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     APP MANAGEMENT
+===================================================== -->
+
+<section
+    class="management active"
+    id="management"
+>
+
+
+<div class="toolbar">
+
+<div class="search-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+    id="appSearch"
+    type="search"
+    placeholder="Search applications..."
+>
+
+</div>
+
+
+<button
+    class="btn btn-primary"
+    id="toolbarAddBtn"
+    style="height:43px;"
+>
+
+<i class="fa-solid fa-plus"></i>
+
+Add App
+
+</button>
+
+</div>
+
+
+<div
+    class="apps-list"
+    id="appsList"
+>
+
+<div class="empty-state">
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+<strong>
+Loading applications...
+</strong>
+
+<span>
+Please wait while Firestore loads your apps.
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FORM MANAGEMENT
+===================================================== -->
+
+<section
+    class="form-management hidden"
+    id="formManagement"
+>
+
+
+<div class="form-layout">
+
+
+<div>
+
+
+<!-- BASIC INFORMATION -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-circle-info"></i>
+
+<span id="formTitle">
+Basic Information
+</span>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label>
+App Name
+</label>
+
+<input
+    id="appName"
+    type="text"
+    placeholder="WhatsApp"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Developer
+</label>
+
+<input
+    id="developer"
+    type="text"
+    placeholder="WhatsApp LLC"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Category
+</label>
+
+<select id="category">
+
+<option value="">
+Select Category
+</option>
+
+<option>Apps</option>
+<option>Games</option>
+<option>Social</option>
+<option>Communication</option>
+<option>Entertainment</option>
+<option>Music & Audio</option>
+<option>Video Players</option>
+<option>Photography</option>
+<option>Tools</option>
+<option>Productivity</option>
+<option>Education</option>
+<option>Finance</option>
+<option>Lifestyle</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>
+Content Type <span>(homepage section)</span>
+</label>
+
+<select id="contentType" required>
+<option value="Apps">Apps</option>
+<option value="Games">Games</option>
+<option value="PC Software">PC Software</option>
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Version
+</label>
+
+<input
+    id="version"
+    type="text"
+    placeholder="eg; 2.0, 1.0"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Size
+</label>
+
+<input
+    id="size"
+    type="text"
+    placeholder="eg; 2mb, 2gb"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Device
+</label>
+
+<input
+    id="android"
+    type="text"
+    placeholder="eg; android, pc"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Rating
+</label>
+
+<input
+    id="rating"
+    type="number"
+    min="0"
+    max="5"
+    step="0.1"
+    value="4.5"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Compatible
+</label>
+
+<input
+    id="downloads"
+    type="text"
+    placeholder="version, windows"
+>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- SEARCH TAGS -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-tags"></i>
+
+Search Tags
+
+</div>
+
+
+<div class="field">
+
+<label>
+Search Keywords
+</label>
+
+<input
+    id="tags"
+    type="text"
+    placeholder="whatsapp, chat, messaging, calling"
+>
+
+<small style="
+color:#626978;
+font-size:9px;
+">
+Separate keywords with commas.
+</small>
+
+</div>
+
+</section>
+
+
+
+<!-- GITHUB FILES -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-link"></i>
+
+GitHub Files
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="field full">
+
+<label>
+App Picture
+</label>
+
+<input
+    id="icon"
+    type="text"
+    placeholder="https://appexio.github.io/assets/apps/whatsapp.png"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+Details Page Background Image URL
+<span>Optional · shown as the large wallpaper on this app’s details page</span>
+</label>
+
+<input
+    id="detailsBackground"
+    type="url"
+    placeholder="https://example.com/images/app-background.jpg"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+APK / Installer File
+</label>
+
+<input
+    id="apk"
+    type="text"
+    placeholder="https://appexio.github.io/downloads/app-file.apk"
+>
+
+</div>
+
+</div>
+
+<div class="field full" style="margin-top:22px">
+  <label>Gameplay & Video Previews <span>Paste direct MP4 or WebM links hosted in your GitHub repository. Featured games use the first clip in the homepage showcase.</span></label>
+  <div class="form-grid">
+    <div class="field"><label for="video1">Preview video 1</label><input id="video1" type="url" placeholder="https://appexio.github.io/media/gameplay-1.mp4"></div>
+    <div class="field"><label for="video2">Preview video 2</label><input id="video2" type="url" placeholder="https://appexio.github.io/media/gameplay-2.mp4"></div>
+    <div class="field"><label for="video3">Preview video 3</label><input id="video3" type="url" placeholder="https://appexio.github.io/media/gameplay-3.mp4"></div>
+  </div>
+  <small style="display:block;margin-top:8px;color:#8795a8;font-size:10px;line-height:1.6">Use a direct file URL ending in .mp4, .webm or .ogg (not a GitHub repository page). The homepage featured preview autoplays muted and loops; the product page plays through the saved clips.</small>
+</div>
+
+
+<br>
+
+
+<div class="field">
+
+<label>
+Screenshots
+<span>
+Maximum 3
+</span>
+</label>
+
+
+<div class="screenshot-list">
+
+
+<div class="screenshot-field">
+
+<div class="shot-number">
+1
+</div>
+
+<input
+    id="screenshot1"
+    type="text"
+    placeholder="https://appexio.github.io/assets/screenshots/app/1.jpg"
+>
+
+</div>
+
+
+<div class="screenshot-field">
+
+<div class="shot-number">
+2
+</div>
+
+<input
+    id="screenshot2"
+    type="text"
+    placeholder="https://appexio.github.io/assets/screenshots/app/2.jpg"
+>
+
+</div>
+
+
+<div class="screenshot-field">
+
+<div class="shot-number">
+3
+</div>
+
+<input
+    id="screenshot3"
+    type="text"
+    placeholder="https://appexio.github.io/assets/screenshots/app/3.jpg"
+>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- DESCRIPTION -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-align-left"></i>
+
+Description
+
+</div>
+
+
+<textarea
+    id="description"
+    placeholder="Write the application description..."
+></textarea>
+
+</section>
+
+
+
+<!-- WHAT'S NEW -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+
+What's New
+
+</div>
+
+
+<textarea
+    id="whatsNew"
+    placeholder="New features&#10;Performance improvements&#10;Bug fixes"
+></textarea>
+
+</section>
+
+
+
+<!-- OPTIONS -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<i class="fa-solid fa-sliders"></i>
+
+Options
+
+</div>
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+    Homepage Collection
+</label>
+
+<select id="homepageSection">
+    <option value="popular">Popular Apps</option>
+    <option value="recommended">Recommended Games</option>
+    <option value="featured">Featured Showcase</option>
+    <option value="trending">Trending Games (legacy)</option>
+</select>
+
+<small style="color:#8795a8;font-size:10px;line-height:1.6;display:block;margin-top:7px">
+Choose Recommended Games to place this game in the right-hand homepage panel. Use Featured Showcase or the Featured checkbox to make it a main featured pick. Set Content Type to Games for it to appear in the game showcase.
+</small>
+
+</div>
+
+
+<div class="checks">
+
+
+<label class="check">
+
+<input
+    id="featured"
+    type="checkbox"
+>
+
+Feature this game in the main homepage showcase
+
+</label>
+
+
+<label class="check">
+
+<input
+    id="verified"
+    type="checkbox"
+    checked
+>
+
+AppExio Verified
+
+</label>
+
+
+</div>
+
+</section>
+
+
+
+<!-- BUTTONS -->
+
+<div class="actions">
+
+
+<button
+    class="btn btn-primary"
+    id="saveAppBtn"
+>
+
+<i class="fa-solid fa-plus"></i>
+
+<span id="saveAppText">
+ADD APP
+</span>
+
+</button>
+
+
+<button
+    class="btn btn-secondary"
+    id="cancelBtn"
+>
+
+<i class="fa-solid fa-xmark"></i>
+
+CANCEL
+
+</button>
+
+
+<button
+    class="btn btn-danger"
+    id="resetBtn"
+>
+
+<i class="fa-solid fa-rotate-left"></i>
+
+RESET
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- PREVIEW -->
+
+<aside class="preview-box">
+
+<div class="preview-label">
+Live Preview
+</div>
+
+
+<div class="app-preview">
+
+
+<div class="preview-top">
+
+
+<img
+    id="previewIcon"
+    class="preview-icon"
+    alt="App"
+>
+
+
+<div>
+
+<div
+    id="previewName"
+    class="preview-name"
+>
+App Name
+</div>
+
+
+<div
+    id="previewDeveloper"
+    class="preview-developer"
+>
+Developer
+</div>
+
+
+<div
+    id="previewCategory"
+    class="preview-category"
+>
+Category
+</div>
+
+</div>
+
+</div>
+
+
+<div class="preview-info">
+
+
+<div>
+
+<strong id="previewVersion">
+—
+</strong>
+
+<span>
+Version
+</span>
+
+</div>
+
+
+<div>
+
+<strong id="previewSize">
+—
+</strong>
+
+<span>
+Size
+</span>
+
+</div>
+
+
+<div>
+
+<strong id="previewRating">
+—
+</strong>
+
+<span>
+Rating
+</span>
+
+</div>
+
+
+<div>
+
+<strong id="previewAndroid">
+—
+</strong>
+
+<span>
+Android
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+</aside>
+
+
+</div>
+
+</section>
+
+<!-- =====================================================
+     ENTERTAINMENT CONTROL PANEL (separate from app management)
+===================================================== -->
+<section class="fe-ent-admin hidden" id="entertainmentAdminPanel">
+  <div class="fe-ent-admin-intro"><div><span class="fe-ent-admin-eyebrow"><i class="fa-solid fa-clapperboard"></i> FISTENGINE ENTERTAINMENT</span><h2>Entertainment Library</h2><p>Manage anime, movies, drama and series independently from the existing app catalog.</p></div><button type="button" class="btn btn-primary fe-ent-admin-add" id="entToolbarAddBtn"><i class="fa-solid fa-plus"></i> Add title</button></div>
+  <div class="fe-ent-admin-stats"><div><span>Total titles</span><strong id="entTotalAdmin">0</strong></div><div><span>Featured</span><strong id="entFeaturedAdmin">0</strong></div><div><span>Recommended</span><strong id="entRecommendedAdmin">0</strong></div><div><span>Categories</span><strong>4</strong></div></div>
+  <div class="fe-ent-admin-toolbar"><label class="fe-ent-admin-search"><i class="fa-solid fa-magnifying-glass"></i><input id="entAdminSearch" type="search" placeholder="Search entertainment titles, category or tags..."></label><select id="entAdminFilter" aria-label="Filter by category"><option value="all">All categories</option><option value="anime">Anime</option><option value="movies">Movies</option><option value="drama">Drama</option><option value="series">Series</option></select></div>
+  <div class="fe-ent-admin-list" id="entAdminList"><div class="fe-ent-admin-empty"><i class="fa-solid fa-spinner fa-spin"></i><strong>Loading entertainment...</strong><span>Connecting to Firestore.</span></div></div>
+</section>
+
+<section class="fe-ent-admin hidden" id="entertainmentFormPanel">
+  <div class="fe-ent-admin-intro"><div><span class="fe-ent-admin-eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> ENTERTAINMENT EDITOR</span><h2 id="entFormHeading">Add a title</h2><p>Add posters, backdrops, tags, trailers, screenshots and download links. Paste complete HTTPS URLs.</p></div><button type="button" class="btn btn-secondary" id="entCancelBtn"><i class="fa-solid fa-arrow-left"></i> Back to library</button></div>
+  <form id="entertainmentAdminForm" autocomplete="off">
+    <section class="panel fe-ent-form-panel" id="feEntMetadataPanel"><div class="panel-title"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Import title metadata</span></div><div class="form-grid">
+      <div class="field full"><label for="entTmdbToken">TMDB Read Access Token <span>(saved in this browser only)</span></label><input id="entTmdbToken" type="password" autocomplete="off" placeholder="Paste your TMDB API Read Access Token"><small>Get a token from your TMDB account API settings. It is used by this admin page to search titles and fetch metadata. Do not share it.</small></div>
+      <div class="field"><label for="entMetadataQuery">Title or IMDb ID / URL</label><input id="entMetadataQuery" type="search" placeholder="e.g. Interstellar or tt0816692"></div>
+      <div class="field"><label for="entMetadataType">Search type</label><select id="entMetadataType"><option value="auto">Use selected category</option><option value="movie">Movie</option><option value="tv">TV / Series</option><option value="multi">All results</option></select></div>
+      <div class="field full"><div class="fe-ent-import-actions"><button class="btn btn-primary" type="button" id="entMetadataSearchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search title / IMDb ID</button><button class="btn btn-secondary" type="button" id="entMetadataTestBtn"><i class="fa-solid fa-plug"></i> Test token</button><button class="btn btn-secondary" type="button" id="entMetadataBrowseBtn"><i class="fa-solid fa-compass"></i> Browse popular in selected category</button><button class="btn btn-secondary" type="button" id="entMetadataNextBtn" disabled><i class="fa-solid fa-arrow-right"></i> Next page</button></div><label class="fe-ent-auto-episodes"><input id="entAutoShowEpisodes" type="checkbox" checked> Auto-show season / episode totals for newly added TV titles</label><div id="entMetadataStatus" role="status" aria-live="polite" class="fe-ent-form-help">First paste your TMDB Read Access Token, then search a title or IMDb ID. Search results can be imported into the form or added to your library.</div><div id="entMetadataResults" class="fe-ent-metadata-results"></div></div>
+    </div><p class="fe-ent-form-help">Metadata source: TMDB API, with IMDb ID lookup support. It imports available posters, backdrops/stills, overview, genres/keywords, rating, language, cast, status, runtime, season/episode totals and available YouTube trailers. It cannot invent a download URL or verify the quality of your specific file. Add your own authorized download link before publishing for downloads.</p></section>
+    <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-circle-info"></i><span>Title information</span></div><div class="form-grid">
+      <div class="field"><label for="entTitle">Title <span>(required)</span></label><input id="entTitle" type="text" maxlength="150" placeholder="e.g. Your Name" required></div>
+      <div class="field"><label for="entCategory">Category</label><select id="entCategory"><option value="anime">Anime</option><option value="movies">Movies</option><option value="drama">Drama</option><option value="series">Series</option></select></div>
+      <div class="field"><label for="entYear">Release year</label><input id="entYear" type="text" maxlength="12" placeholder="e.g. 2026"></div>
+      <div class="field"><label for="entRating">Rating</label><input id="entRating" type="text" maxlength="20" placeholder="e.g. 8.7 / 10"></div>
+      <div class="field"><label for="entLanguage">Language</label><input id="entLanguage" type="text" maxlength="80" placeholder="e.g. Japanese, English dub"></div>
+      <div class="field"><label for="entQuality">Quality / format</label><input id="entQuality" type="text" maxlength="80" placeholder="Set this to match your actual file/source"></div>
+      <div class="field"><label for="entRuntime">Runtime / episode length</label><input id="entRuntime" type="text" maxlength="80" placeholder="e.g. 169 min or 24 min/episode"></div>
+      <div class="field"><label for="entStatus">Release status</label><input id="entStatus" type="text" maxlength="80" placeholder="e.g. Released, Returning Series"></div>
+      <div class="field"><label for="entCountry">Country / origin</label><input id="entCountry" type="text" maxlength="160" placeholder="e.g. Japan, South Korea"></div>
+      <div class="field"><label for="entTagline">Tagline</label><input id="entTagline" type="text" maxlength="240" placeholder="Short promotional line"></div>
+      <div class="field full"><label for="entCast">Main cast <span>(comma-separated)</span></label><input id="entCast" type="text" maxlength="800" placeholder="Actor / voice cast names"></div>
+      <div class="field"><label for="entTmdbId">TMDB ID</label><input id="entTmdbId" type="text" maxlength="30" placeholder="Imported automatically"></div>
+      <div class="field"><label for="entImdbId">IMDb ID</label><input id="entImdbId" type="text" maxlength="30" placeholder="e.g. tt1234567"></div>
+      <div class="field"><label for="entSeasonCount">Number of seasons</label><input id="entSeasonCount" type="number" min="0" max="999" placeholder="e.g. 3"></div>
+      <div class="field"><label for="entEpisodeCount">Total episodes</label><input id="entEpisodeCount" type="number" min="0" max="99999" placeholder="e.g. 24"></div>
+      <div class="field full"><label><input id="entShowEpisodes" type="checkbox"> Show season / episode count on public cards and details</label><small>Use for series or anime. You can leave this off for any title.</small></div>
+      <div class="field"><label for="entBadge">Card badge <span>(optional)</span></label><input id="entBadge" type="text" maxlength="40" placeholder="e.g. NEW, STAFF PICK, SEASON 1"></div>
+      <div class="field"><label for="entSortOrder">Display priority</label><input id="entSortOrder" type="number" min="0" max="99999" value="0" placeholder="Higher values appear first"></div>
+      <div class="field full"><label for="entDescription">Synopsis / description</label><textarea id="entDescription" maxlength="5000" placeholder="Write a useful description of this title..."></textarea></div>
+      <div class="field full"><label for="entTags">Search tags <span>(comma-separated)</span></label><input id="entTags" type="text" placeholder="action, fantasy, romance, adventure, korean drama"></div>
+    </div><div class="fe-ent-check-row"><label><input id="entFeatured" type="checkbox"><span><strong>Featured title</strong><small>Can be shown in the main hero spotlight.</small></span></label><label><input id="entRecommended" type="checkbox"><span><strong>Recommended</strong><small>Add this title to the recommended shelf.</small></span></label></div></section>
+
+    <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-images"></i><span>Artwork &amp; screenshots</span></div><div class="form-grid">
+      <div class="field full"><label for="entCoverUrl">Poster / card cover image URL</label><input id="entCoverUrl" type="url" placeholder="https://example.com/poster.jpg"></div>
+      <div class="field full"><label for="entBackgroundUrl">Wide background / hero cover image URL</label><input id="entBackgroundUrl" type="url" placeholder="https://example.com/backdrop.jpg"></div>
+      <div class="field full"><label for="entScreenshotUrls">Screenshot image URLs <span>(one HTTPS URL per line)</span></label><textarea id="entScreenshotUrls" placeholder="https://example.com/screenshot-1.jpg&#10;https://example.com/screenshot-2.jpg"></textarea></div>
+    </div><p class="fe-ent-form-help"><i class="fa-solid fa-circle-info"></i> Use direct, publicly accessible image links so the website can display the artwork without signing in to another service.</p></section>
+
+    <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-photo-film"></i><span>Trailers &amp; video previews</span></div><div class="form-grid">
+      <div class="field full"><label for="entTrailerUrl">Trailer URL <span>(YouTube, Vimeo or direct video)</span></label><input id="entTrailerUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
+      <div class="field full"><label for="entVideoUrls">Extra video URLs <span>(one per line; YouTube/Vimeo or direct MP4/WebM)</span></label><textarea id="entVideoUrls" placeholder="https://www.youtube.com/watch?v=...&#10;https://cdn.example.com/preview.mp4"></textarea></div>
+    </div></section>
+
+    <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-cloud-arrow-down"></i><span>Download links</span></div><div class="form-grid">
+      <div class="field full"><label for="entDownloadUrl">Primary download URL <span>(recommended)</span></label><input id="entDownloadUrl" type="url" placeholder="https://example.com/download"></div>
+      <div class="field full"><label for="entDownloadLinks">Extra download mirrors <span>(one URL per line)</span></label><textarea id="entDownloadLinks" placeholder="https://example.com/mirror-1&#10;https://example.com/mirror-2"></textarea></div>
+    </div><p class="fe-ent-form-help"><i class="fa-solid fa-shield-halved"></i> The buttons open the link supplied by the admin in a new tab. Only publish links you are authorized to share.</p></section>
+    <div class="fe-ent-form-actions"><button type="button" class="btn btn-secondary" id="entCancelBottomBtn">Cancel</button><button type="submit" class="btn btn-primary" id="entSaveBtn"><i class="fa-solid fa-floppy-disk"></i> Save title</button></div>
+  </form>
+</section>
+
+</main>
+
+</div>
+
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<style id="fe-ent-metadata-import-style">
+.fe-ent-metadata-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:12px}.fe-ent-metadata-result{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:start;text-align:left;border:1px solid rgba(130,155,190,.25);border-radius:12px;padding:10px;background:rgba(15,25,42,.8);color:inherit;min-width:0}.fe-ent-metadata-result:hover{border-color:#6ce7dc;background:rgba(35,56,76,.9)}.fe-ent-metadata-result img{width:64px;height:90px;object-fit:cover;border-radius:7px;background:#101827}.fe-ent-metadata-result strong{display:block;line-height:1.3;margin-bottom:5px}.fe-ent-metadata-result small{display:block;color:#9aabc2;line-height:1.45;margin-bottom:4px}.fe-ent-result-actions{grid-column:2;display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.fe-ent-result-actions button{font-size:9px!important;min-height:32px!important;padding:0 9px!important}.fe-ent-import-actions{display:flex;gap:8px;flex-wrap:wrap}.fe-ent-auto-episodes{display:flex;align-items:center;gap:9px;margin-top:12px;padding:10px;border:1px solid rgba(130,155,190,.18);border-radius:9px;color:#cbd5e7;font-size:11px}.fe-ent-auto-episodes input{width:16px;height:16px;accent-color:#6ce7dc}.fe-ent-form-help{font-size:12px;color:#9aabc2;line-height:1.6;margin-top:8px}#feFileOriginWarning{margin:14px auto;padding:12px 15px;max-width:1400px;border:1px solid #d99b3f55;border-radius:10px;background:#8b5a141a;color:#f5d8a7;font-size:12px;line-height:1.55}#feFileOriginWarning a{color:#6ce7dc;text-decoration:underline}@media(max-width:650px){.fe-ent-metadata-results{grid-template-columns:1fr}.fe-ent-import-actions button{flex:1 1 100%}}
+</style>
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp,
+    onSnapshot,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyABU60kwZik2S1_8Dx7sfT6HfGBIr935Bw",
+
+    authDomain:
+        "apkcity-30fa1.firebaseapp.com",
+
+    projectId:
+        "apkcity-30fa1",
+
+    storageBucket:
+        "apkcity-30fa1.firebasestorage.app",
+
+    messagingSenderId:
+        "965202080311",
+
+    appId:
+        "1:965202080311:web:6419bf702de3dcf024c5b2"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let allApps = [];
+
+let editingAppId = null;
+
+let unsubscribeApps = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const management =
+    document.getElementById("management");
+
+const formManagement =
+    document.getElementById("formManagement");
+
+const appsList =
+    document.getElementById("appsList");
+
+const appSearch =
+    document.getElementById("appSearch");
+
+const pageHeading =
+    document.getElementById("pageHeading");
+
+const pageDescription =
+    document.getElementById("pageDescription");
+
+const saveAppBtn =
+    document.getElementById("saveAppBtn");
+
+const saveAppText =
+    document.getElementById("saveAppText");
+
+
+/* =====================================================
+   ADMIN ACCESS
+   Firebase Firestore rules require a signed-in user.
+   Keep the admin panel protected rather than weakening
+   database permissions for every visitor.
+===================================================== */
+
+startAppsListener();
+
+
+/* =====================================================
+   FIRESTORE REAL-TIME LISTENER
+===================================================== */
+
+function startAppsListener() {
+
+    if (unsubscribeApps) {
+        unsubscribeApps();
+    }
+
+    const appsRef =
+        collection(db, "apps");
+
+    const appsQuery =
+        query(
+            appsRef,
+            orderBy(
+                "createdAt",
+                "desc"
+            )
+        );
+
+    unsubscribeApps =
+        onSnapshot(
+            appsQuery,
+            snapshot => {
+
+                allApps =
+                    snapshot.docs.map(
+                        item => ({
+                            id: item.id,
+                            ...item.data()
+                        })
+                    );
+
+                updateStats();
+
+                renderApps();
+
+            },
+
+            error => {
+
+                console.error(
+                    "Apps listener error:",
+                    error
+                );
+
+                showToast(
+                    "Unable to load apps: " +
+                    error.message
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats() {
+
+    document.getElementById(
+        "totalApps"
+    ).textContent =
+        allApps.length;
+
+
+    document.getElementById(
+        "featuredApps"
+    ).textContent =
+        allApps.filter(
+            app => app.featured === true
+        ).length;
+
+
+    document.getElementById(
+        "verifiedApps"
+    ).textContent =
+        allApps.filter(
+            app => app.verified === true
+        ).length;
+
+
+    const categories =
+        new Set(
+            allApps
+                .map(
+                    app => app.category
+                )
+                .filter(Boolean)
+        );
+
+    document.getElementById(
+        "categoryCount"
+    ).textContent =
+        categories.size;
+
+}
+
+
+/* =====================================================
+   RENDER APPS
+===================================================== */
+
+function renderApps() {
+
+    const search =
+        appSearch.value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        allApps.filter(
+            app => {
+
+                if (!search) {
+                    return true;
+                }
+
+                const searchable = [
+
+                    app.name,
+
+                    app.developer,
+
+                    app.category,
+
+                    ...(app.tags || [])
+
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+                return searchable.includes(search);
+
+            }
+        );
+
+
+    if (!filtered.length) {
+
+        appsList.innerHTML = `
+
+            <div class="empty-state">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <strong>
+                    ${
+                        search
+                            ? "No matching applications"
+                            : "No applications yet"
+                    }
+                </strong>
+
+                <span>
+                    ${
+                        search
+                            ? "Try another search."
+                            : "Add your first APK using the Add App button."
+                    }
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    appsList.innerHTML =
+        filtered
+            .map(
+                app => createAppRow(app)
+            )
+            .join("");
+
+
+    document
+        .querySelectorAll(
+            "[data-edit]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        editApp(
+                            button.dataset.edit
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-delete]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        deleteApp(
+                            button.dataset.delete
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   APP ROW
+===================================================== */
+
+function createAppRow(app) {
+
+    const tags =
+        Array.isArray(app.tags)
+            ? app.tags.join(", ")
+            : "";
+
+
+    const icon =
+        app.icon ||
+        "";
+
+
+    return `
+
+        <div class="app-row">
+
+            <img
+                class="app-row-icon"
+                src="${escapeHtml(icon)}"
+                alt=""
+                onerror="this.style.opacity='.25'"
+            >
+
+
+            <div class="app-row-info">
+
+                <div class="app-row-name">
+
+                    ${escapeHtml(
+                        app.name || "Unnamed App"
+                    )}
+
+                    ${
+                        app.verified
+                            ? `
+                                <i
+                                    class="fa-solid fa-circle-check verified"
+                                    title="Verified"
+                                ></i>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+
+                <div class="app-row-meta">
+
+                    ${
+                        app.category
+                            ? `
+                                <span class="meta">
+                                    ${escapeHtml(app.category)}
+                                </span>
+                              `
+                            : ""
+                    }
+
+                    ${
+                        app.version
+                            ? `
+                                <span class="meta">
+                                    v${escapeHtml(app.version)}
+                                </span>
+                              `
+                            : ""
+                    }
+
+                    ${
+                        app.size
+                            ? `
+                                <span class="meta">
+                                    ${escapeHtml(app.size)}
+                                </span>
+                              `
+                            : ""
+                    }
+
+                    ${
+                        app.featured
+                            ? `
+                                <span class="meta">
+                                    ★ Featured
+                                </span>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+
+                <div class="app-row-tags">
+
+                    ${
+                        tags
+                            ? "Tags: " + escapeHtml(tags)
+                            : "No search tags"
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="app-actions">
+
+                <button
+                    class="icon-btn"
+                    data-edit="${app.id}"
+                    title="Edit App"
+                >
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+
+                <button
+                    class="icon-btn delete"
+                    data-delete="${app.id}"
+                    title="Delete App"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+appSearch.addEventListener(
+    "input",
+    renderApps
+);
+
+
+/* =====================================================
+   SHOW APPLICATIONS
+===================================================== */
+
+function showApplications() {
+
+    management.classList.add(
+        "active"
+    );
+
+    formManagement.classList.add(
+        "hidden"
+    );
+
+    pageHeading.textContent =
+        "Applications";
+
+    pageDescription.textContent =
+        "Manage all applications published on AppExio.";
+
+    document
+        .getElementById(
+            "showDashboardBtn"
+        )
+        .classList.add("active");
+
+    document
+        .getElementById(
+            "showAddBtn"
+        )
+        .classList.remove("active");
+
+    editingAppId = null;
+
+}
+
+
+/* =====================================================
+   SHOW ADD FORM
+===================================================== */
+
+function showAddForm() {
+
+    management.classList.remove(
+        "active"
+    );
+
+    formManagement.classList.remove(
+        "hidden"
+    );
+
+    pageHeading.textContent =
+        "Add Application";
+
+    pageDescription.textContent =
+        "Add a new application to AppExio.";
+
+    document
+        .getElementById(
+            "showAddBtn"
+        )
+        .classList.add("active");
+
+    document
+        .getElementById(
+            "showDashboardBtn"
+        )
+        .classList.remove("active");
+
+    editingAppId = null;
+
+    clearForm(false);
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+            "Basic Information";
+
+    saveAppText.textContent =
+        "ADD APP";
+
+    saveAppBtn.innerHTML = `
+
+        <i class="fa-solid fa-plus"></i>
+
+        <span id="saveAppText">
+            ADD APP
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SIDEBAR EVENTS
+===================================================== */
+
+document
+    .getElementById(
+        "showDashboardBtn"
+    )
+    .addEventListener(
+        "click",
+        showApplications
+    );
+
+
+document
+    .getElementById(
+        "showAddBtn"
+    )
+    .addEventListener(
+        "click",
+        showAddForm
+    );
+
+
+document
+    .getElementById(
+        "toolbarAddBtn"
+    )
+    .addEventListener(
+        "click",
+        showAddForm
+    );
+
+
+/* =====================================================
+   EDIT APP
+===================================================== */
+
+function editApp(id) {
+
+    const app =
+        allApps.find(
+            item => item.id === id
+        );
+
+
+    if (!app) {
+
+        showToast(
+            "Application not found."
+        );
+
+        return;
+
+    }
+
+
+    editingAppId = id;
+
+
+    management.classList.remove(
+        "active"
+    );
+
+    formManagement.classList.remove(
+        "hidden"
+    );
+
+
+    pageHeading.textContent =
+        "Edit Application";
+
+    pageDescription.textContent =
+        "Update the selected application.";
+
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+            "Edit Application";
+
+
+    saveAppBtn.innerHTML = `
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        <span>
+            UPDATE APP
+        </span>
+
+    `;
+
+
+    setValue(
+        "appName",
+        app.name
+    );
+
+    setValue(
+        "developer",
+        app.developer
+    );
+
+    setValue(
+        "category",
+        app.category
+    );
+
+    const legacyTypeText = `${app.contentType || ""} ${app.category || ""} ${app.android || ""}`.toLowerCase();
+    document.getElementById("contentType").value =
+        /pc software|windows|desktop|pc\b/.test(legacyTypeText) ? "PC Software" :
+        /\bgames?\b/.test(legacyTypeText) ? "Games" : (app.contentType || "Apps");
+
+    document
+    .getElementById("homepageSection")
+    .value =
+        app.homepageSection || "popular";
+
+    setValue(
+        "version",
+        app.version
+    );
+
+    setValue(
+        "size",
+        app.size
+    );
+
+    setValue(
+        "android",
+        app.android
+    );
+
+    setValue(
+        "rating",
+        app.rating ?? 4.5
+    );
+
+    setValue(
+        "downloads",
+        app.downloads
+    );
+
+    setValue(
+        "icon",
+        app.icon
+    );
+
+    setValue(
+        "detailsBackground",
+        app.detailsBackground || ""
+    );
+
+    setValue(
+        "apk",
+        app.apk
+    );
+
+    const savedVideos = Array.isArray(app.videos) ? app.videos : (Array.isArray(app.videoUrls) ? app.videoUrls : (app.video || app.trailerUrl ? [app.video || app.trailerUrl] : []));
+    setValue("video1", savedVideos[0] || "");
+    setValue("video2", savedVideos[1] || "");
+    setValue("video3", savedVideos[2] || "");
+
+    setValue(
+        "screenshot1",
+        app.screenshots?.[0] || ""
+    );
+
+    setValue(
+        "screenshot2",
+        app.screenshots?.[1] || ""
+    );
+
+    setValue(
+        "screenshot3",
+        app.screenshots?.[2] || ""
+    );
+
+    setValue(
+        "description",
+        app.description
+    );
+
+    setValue(
+        "whatsNew",
+        app.whatsNew
+    );
+
+
+    document
+        .getElementById(
+            "tags"
+        )
+        .value =
+            Array.isArray(app.tags)
+                ? app.tags.join(", ")
+                : "";
+
+
+    document
+        .getElementById(
+            "featured"
+        )
+        .checked =
+            app.featured === true;
+
+
+    document
+        .getElementById(
+            "verified"
+        )
+        .checked =
+            app.verified !== false;
+
+
+    updatePreview();
+
+}
+
+
+/* =====================================================
+   SAVE / UPDATE
+===================================================== */
+
+saveAppBtn.addEventListener(
+    "click",
+    saveApp
+);
+
+
+async function saveApp() {
+
+        const data =
+        collectFormData();
+
+
+    if (!validateData(data)) {
+        return;
+    }
+
+
+    saveAppBtn.disabled =
+        true;
+
+
+    saveAppBtn.innerHTML = `
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <span>
+            ${
+                editingAppId
+                    ? "UPDATING..."
+                    : "ADDING..."
+            }
+        </span>
+
+    `;
+
+
+    try {
+
+        if (editingAppId) {
+
+            await updateDoc(
+                doc(
+                    db,
+                    "apps",
+                    editingAppId
+                ),
+                {
+                    ...data,
+                    updatedAt:
+                        serverTimestamp()
+                }
+            );
+
+
+            showToast(
+                "✓ App updated successfully!"
+            );
+
+        } else {
+
+            await addDoc(
+                collection(
+                    db,
+                    "apps"
+                ),
+                {
+                    ...data,
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+                }
+            );
+
+
+            showToast(
+                "✓ App added successfully!"
+            );
+
+        }
+
+
+        clearForm(false);
+
+        showApplications();
+
+
+    } catch (error) {
+
+        console.error(
+            "Firestore error:",
+            error
+        );
+
+        showToast(
+            "Failed: " +
+            error.message
+        );
+
+    } finally {
+
+        saveAppBtn.disabled =
+            false;
+
+        saveAppBtn.innerHTML = editingAppId
+            ? `
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>UPDATE APP</span>
+              `
+            : `
+                <i class="fa-solid fa-plus"></i>
+                <span>ADD APP</span>
+              `;
+
+    }
+
+}
+
+
+/* =====================================================
+   COLLECT FORM
+===================================================== */
+
+function collectFormData() {
+
+    const get =
+        id =>
+            document
+                .getElementById(id)
+                .value
+                .trim();
+
+
+    const tags =
+        get("tags")
+            .split(",")
+            .map(
+                tag =>
+                    tag.trim()
+            )
+            .filter(Boolean);
+
+
+    const screenshots = [
+
+        get("screenshot1"),
+        get("screenshot2"),
+        get("screenshot3")
+
+    ].filter(Boolean);
+
+    const videos = [get("video1"), get("video2"), get("video3")].filter(Boolean);
+
+
+   return {
+
+    name:
+        get("appName"),
+
+    homepageSection:
+        document
+            .getElementById("homepageSection")
+            .value,
+
+        developer:
+            get("developer"),
+
+        category:
+            get("category"),
+
+        contentType:
+            get("contentType") || "Apps",
+
+        version:
+            get("version"),
+
+        size:
+            get("size"),
+
+        android:
+            get("android"),
+
+        rating:
+            Number(
+                get("rating")
+            ) || 0,
+
+        downloads:
+            get("downloads"),
+
+        icon:
+            get("icon"),
+
+        detailsBackground:
+            get("detailsBackground"),
+
+        apk:
+            get("apk"),
+
+        screenshots:
+            screenshots,
+
+        videos:
+            videos,
+
+        tags:
+            tags,
+
+        description:
+            get("description"),
+
+        whatsNew:
+            get("whatsNew"),
+
+        featured:
+            document
+                .getElementById(
+                    "featured"
+                )
+                .checked,
+
+        verified:
+            document
+                .getElementById(
+                    "verified"
+                )
+                .checked
+
+    };
+
+}
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function validateData(data) {
+
+    if (!data.name) {
+
+        showToast(
+            "Please enter the app name."
+        );
+
+        return false;
+
+    }
+
+
+    if (!data.developer) {
+
+        showToast(
+            "Please enter the developer."
+        );
+
+        return false;
+
+    }
+
+
+    if (!data.category) {
+
+        showToast(
+            "Please select a category."
+        );
+
+        return false;
+
+    }
+
+
+    if (!data.icon) {
+
+        showToast(
+            "Please enter the app picture URL."
+        );
+
+        return false;
+
+    }
+
+
+    if (!data.apk) {
+
+        showToast(
+            "Please enter the APK URL."
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        data.rating < 0 ||
+        data.rating > 5
+    ) {
+
+        showToast(
+            "Rating must be between 0 and 5."
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        data.screenshots.length > 3
+    ) {
+
+        showToast(
+            "Maximum 3 screenshots allowed."
+        );
+
+        return false;
+
+    }
+
+    for (const videoUrl of data.videos) {
+        try {
+            const parsed = new URL(videoUrl);
+            if (!/^https?:$/.test(parsed.protocol) || !/\.(mp4|webm|ogg)$/i.test(parsed.pathname)) {
+                showToast("Video previews must be direct MP4, WebM or OGG file links.");
+                return false;
+            }
+        } catch (_) {
+            showToast("Please enter a valid direct video URL.");
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
+
+/* =====================================================
+   DELETE APP
+===================================================== */
+
+async function deleteApp(id) {
+
+    const app =
+        allApps.find(
+            item => item.id === id
+        );
+
+
+    if (!app) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${app.name}"?\n\nThis will permanently remove the app from Firestore and from the AppExio website.`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        await deleteDoc(
+            doc(
+                db,
+                "apps",
+                id
+            )
+        );
+
+
+        showToast(
+            "✓ App deleted successfully!"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+        showToast(
+            "Failed to delete: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(confirmFirst = true) {
+
+    if (
+        confirmFirst &&
+        !confirm(
+            "Clear all fields?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    document
+        .querySelectorAll(
+            "#formManagement input[type='text'], #formManagement input[type='url'], #formManagement input[type='number'], #formManagement textarea"
+        )
+        .forEach(
+            element => {
+
+                element.value = "";
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "category"
+        )
+        .value = "";
+
+    document
+    .getElementById("homepageSection")
+    .value = "popular";
+
+
+    document
+        .getElementById(
+            "rating"
+        )
+        .value = "4.5";
+
+
+    document
+        .getElementById(
+            "featured"
+        )
+        .checked = false;
+
+
+    document
+        .getElementById(
+            "verified"
+        )
+        .checked = true;
+
+
+    updatePreview();
+
+}
+
+
+document
+    .getElementById(
+        "resetBtn"
+    )
+    .addEventListener(
+        "click",
+        () => clearForm(true)
+    );
+
+
+document
+    .getElementById(
+        "cancelBtn"
+    )
+    .addEventListener(
+        "click",
+        showApplications
+    );
+
+
+/* =====================================================
+   SET VALUE
+===================================================== */
+
+function setValue(id, value) {
+
+    document
+        .getElementById(id)
+        .value =
+            value ?? "";
+
+}
+
+
+/* =====================================================
+   LIVE PREVIEW
+===================================================== */
+
+function updatePreview() {
+
+    const get =
+        id =>
+            document
+                .getElementById(id)
+                .value;
+
+
+    document
+        .getElementById(
+            "previewName"
+        )
+        .textContent =
+            get("appName") ||
+            "App Name";
+
+
+    document
+        .getElementById(
+            "previewDeveloper"
+        )
+        .textContent =
+            get("developer") ||
+            "Developer";
+
+
+    document
+        .getElementById(
+            "previewCategory"
+        )
+        .textContent =
+            get("category") ||
+            "Category";
+
+
+    document
+        .getElementById(
+            "previewVersion"
+        )
+        .textContent =
+            get("version") ||
+            "—";
+
+
+    document
+        .getElementById(
+            "previewSize"
+        )
+        .textContent =
+            get("size") ||
+            "—";
+
+
+    document
+        .getElementById(
+            "previewAndroid"
+        )
+        .textContent =
+            get("android") ||
+            "—";
+
+
+    document
+        .getElementById(
+            "previewRating"
+        )
+        .textContent =
+            get("rating")
+                ? "★ " + get("rating")
+                : "—";
+
+
+    const previewIcon =
+        document.getElementById(
+            "previewIcon"
+        );
+
+
+    if (get("icon")) {
+
+        previewIcon.src =
+            get("icon");
+
+    } else {
+
+        previewIcon.removeAttribute(
+            "src"
+        );
+
+    }
+
+}
+
+
+[
+    "appName",
+    "developer",
+    "category",
+    "version",
+    "size",
+    "android",
+    "rating",
+    "icon"
+
+].forEach(
+    id => {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "input",
+                updatePreview
+            );
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "change",
+                updatePreview
+            );
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer = null;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3500
+        );
+
+}
+
+
+/* Entertainment metadata import. TMDB is the metadata/image/video provider; IMDb IDs can be resolved through TMDB's find endpoint. */
+const entTmdbTokenInput = document.getElementById("entTmdbToken");
+const entMetadataQuery = document.getElementById("entMetadataQuery");
+const entMetadataType = document.getElementById("entMetadataType");
+const entMetadataStatus = document.getElementById("entMetadataStatus");
+const entMetadataResults = document.getElementById("entMetadataResults");
+const entMetadataNextBtn = document.getElementById("entMetadataNextBtn");
+let feTmdbBrowsePage = 1;
+let feTmdbLastBrowseCategory = "";
+let feTmdbLastBrowseMode = "";
+try { if (entTmdbTokenInput) entTmdbTokenInput.value = localStorage.getItem("fe_ent_tmdb_read_token") || ""; } catch (_) {}
+entTmdbTokenInput?.addEventListener("change", () => { try { localStorage.setItem("fe_ent_tmdb_read_token", entTmdbTokenInput.value.trim()); } catch (_) {} });
+function feTmdbImage(path, size="w500") { return path ? `https://image.tmdb.org/t/p/${size}${path}` : ""; }
+function feTmdbSet(id, value) { const el=document.getElementById(id); if(el && value !== undefined && value !== null) el.value=String(value); }
+function feTmdbImdbId(value) { const match=String(value||"").match(/tt\d{5,}/i); return match ? match[0].toLowerCase() : ""; }
+async function feTmdbFetch(path) {
+  const token=(entTmdbTokenInput?.value || "").trim();
+  if(!token) throw new Error("TMDB token is missing. Paste your API Read Access Token in the box above this button. The importer cannot fetch metadata without your own token.");
+  let response;
+  try { response=await fetch(`https://api.themoviedb.org/3${path}`, {headers:{Authorization:`Bearer ${token}`,Accept:"application/json"}}); }
+  catch(error) { throw new Error(location.protocol === "file:" ? "This page is open as a local file. Open the site through GitHub Pages or VS Code Live Server so Firebase and the metadata importer can run." : `Network request failed: ${error.message||"check your internet connection"}`); }
+  if(!response.ok) { let msg=`TMDB request failed (${response.status})`; try{const body=await response.json();msg=body.status_message||msg;}catch(_){} if(response.status===401) msg="TMDB rejected the token. Check that you pasted the API Read Access Token (not the account password or IMDb URL)."; if(response.status===403) msg="TMDB denied the request. Check the token and your TMDB API account settings."; throw new Error(msg); }
+  return response.json();
+}
+function feTmdbResultTitle(item) { return item.title || item.name || item.original_title || item.original_name || "Untitled"; }
+function feTmdbCategory() { return document.getElementById("entCategory")?.value || "movies"; }
+function feTmdbTypesForCategory(category=feTmdbCategory()) { return category === "movies" ? ["movie"] : ["tv"]; }
+function feTmdbYear(item) { return String(item.release_date || item.first_air_date || "").slice(0,4); }
+function feTmdbRenderResults(found, prefix="") {
+  if (!entMetadataResults) return;
+  entMetadataResults.replaceChildren();
+  if (!found.length) { entMetadataStatus.textContent=prefix || "No titles were found. Try another title or category."; return; }
+  entMetadataStatus.textContent=prefix || `Found ${found.length} titles. Import metadata into the form or add a metadata card to Firestore. Add/verify a permitted download URL separately.`;
+  found.forEach(item=>{
+    const card=document.createElement("article"); card.className="fe-ent-metadata-result";
+    const img=document.createElement("img"); img.src=feTmdbImage(item.poster_path,"w185")||"logo.png"; img.alt=`Poster for ${feTmdbResultTitle(item)}`; img.loading="lazy"; img.onerror=function(){this.onerror=null;this.src="logo.png"};
+    const copy=document.createElement("div"); copy.style.minWidth="0";
+    const title=document.createElement("strong"); title.textContent=feTmdbResultTitle(item);
+    const meta=document.createElement("small"); meta.textContent=`${item.media_type==="tv"?"TV / Series":"Movie"} · ${feTmdbYear(item)||"Year unknown"} · ★ ${Number(item.vote_average||0).toFixed(1)}${item.id?` · TMDB ${item.id}`:""}`;
+    const overview=document.createElement("small"); overview.textContent=item.overview||"No synopsis available from this result.";
+    copy.append(title,meta,overview);
+    const actions=document.createElement("div"); actions.className="fe-ent-result-actions";
+    const fill=document.createElement("button"); fill.type="button"; fill.className="btn btn-secondary"; fill.innerHTML='<i class="fa-solid fa-file-import"></i> Fill editor'; fill.addEventListener("click",()=>feTmdbImport(item));
+    const publish=document.createElement("button"); publish.type="button"; publish.className="btn btn-primary"; publish.dataset.busyResult=String(item.id); publish.innerHTML='<i class="fa-solid fa-plus"></i> Add to library'; publish.addEventListener("click",()=>feTmdbPublish(item));
+    actions.append(fill,publish); card.append(img,copy,actions); entMetadataResults.appendChild(card);
+  });
+}
+async function feTmdbSearch() {
+  const queryText=(entMetadataQuery?.value||"").trim();
+  if(!queryText){entMetadataStatus.textContent="Enter a title, IMDb ID (tt1234567), or IMDb title URL first.";return;}
+  entMetadataResults.replaceChildren(); entMetadataStatus.textContent="Searching the metadata catalogue…";
+  try {
+    const imdbId=feTmdbImdbId(queryText); let found=[];
+    if(imdbId){
+      const data=await feTmdbFetch(`/find/${encodeURIComponent(imdbId)}?external_source=imdb_id`);
+      found=[...(data.movie_results||[]).map(item=>({...item,media_type:"movie"})),...(data.tv_results||[]).map(item=>({...item,media_type:"tv"}))];
+      if(entMetadataType.value==="movie") found=found.filter(item=>item.media_type==="movie");
+      if(entMetadataType.value==="tv") found=found.filter(item=>item.media_type==="tv");
+    } else {
+      const selected=entMetadataType?.value||"auto"; const category=feTmdbCategory();
+      const types=selected==="auto" ? feTmdbTypesForCategory(category) : selected==="multi" ? ["multi"] : [selected];
+      for(const type of types){const data=await feTmdbFetch(`/search/${type}?query=${encodeURIComponent(queryText)}&include_adult=false`);(data.results||[]).slice(0,12).forEach(item=>found.push({...item,media_type:item.media_type||type}));}
+    }
+    const seen=new Set(); found=found.filter(item=>{const key=`${item.media_type}:${item.id}`;if(seen.has(key))return false;seen.add(key);return true;}).slice(0,24);
+    feTmdbLastBrowseMode="search"; if(entMetadataNextBtn)entMetadataNextBtn.disabled=true;
+    feTmdbRenderResults(found, found.length?`Found ${found.length} matches${imdbId?` for IMDb ID ${imdbId}`:""}. Choose Fill editor to review details or Add to library to publish a metadata card.`:"No matches found. Check the title / IMDb ID, or choose a different search type.");
+  } catch(error){entMetadataStatus.textContent=error.message||"Could not search metadata provider.";}
+}
+async function feTmdbGetDetails(result) {
+  const type=result.media_type==="tv"?"tv":"movie";
+  const [details, images] = await Promise.all([
+    feTmdbFetch(`/${type}/${result.id}?append_to_response=videos,external_ids,keywords,credits`),
+    feTmdbFetch(`/${type}/${result.id}/images?include_image_language=en,null`).catch(()=>({backdrops:[],posters:[]}))
+  ]);
+  return {type, details, images, result};
+}
+function feTmdbExtractData(bundle, category, showEpisodes) {
+  const {type,details,images,result}=bundle;
+  const keywordEntries=type==="tv" ? (details.keywords?.results||[]) : (details.keywords?.keywords||[]);
+  const genres=(details.genres||[]).map(entry=>entry.name).filter(Boolean);
+  const keywords=keywordEntries.map(entry=>entry.name).filter(Boolean);
+  const countryList=(details.production_countries||[]).map(entry=>entry.name).filter(Boolean);
+  const countries=countryList.length?countryList:(details.origin_country||[]);
+  const cast=(details.credits?.cast||[]).slice(0,12).map(entry=>entry.name).filter(Boolean);
+  const runtime=type==="movie" ? (details.runtime?`${details.runtime} min`:"") : ((details.episode_run_time||[]).length?`${details.episode_run_time[0]} min/episode`:"");
+  const mediaImages=[...(images.backdrops||[]).map(entry=>entry.file_path),...(images.posters||[]).map(entry=>entry.file_path)].filter(Boolean);
+  const screenshots=[...new Set(mediaImages)].slice(0,10).map(path=>feTmdbImage(path,"w780")).filter(Boolean);
+  const videos=details.videos?.results||[];
+  const trailer=videos.find(video=>video.site==="YouTube"&&video.type==="Trailer")||videos.find(video=>video.site==="YouTube"&&["Teaser","Featurette"].includes(video.type));
+  const originalTitle=details.original_title||details.original_name||result.original_title||result.original_name||"";
+  const title=details.title||details.name||feTmdbResultTitle(result);
+  const id=String(details.id||result.id||"");
+  const imdbId=details.imdb_id||details.external_ids?.imdb_id||feTmdbImdbId(entMetadataQuery?.value||"");
+  const tagValues=[...genres,...keywords,details.original_language||"",title,originalTitle,feTmdbCategory()];
+  return {
+    title,category,year:String((details.release_date||details.first_air_date||result.release_date||result.first_air_date||"").slice(0,4)),
+    rating:details.vote_average?`${Number(details.vote_average).toFixed(1)} / 10`:"",language:details.original_language||"",quality:"",
+    runtime,status:details.status||"",country:countries.join(", "),tagline:details.tagline||"",cast:cast.join(", "),
+    badge:"",sortOrder:0,description:details.overview||result.overview||"",tags:[...new Set(tagValues.map(value=>String(value||"").trim()).filter(Boolean))],
+    coverUrl:feTmdbImage(details.poster_path||result.poster_path,"w500"),backgroundUrl:feTmdbImage(details.backdrop_path||result.backdrop_path,"w1280"),screenshots,
+    trailerUrl:trailer?`https://www.youtube.com/watch?v=${trailer.key}`:"",videos:[],downloadUrl:"",downloadLinks:[],tmdbId:id,imdbId,
+    seasonCount:type==="tv"?Number(details.number_of_seasons)||0:0,episodeCount:type==="tv"?Number(details.number_of_episodes)||0:0,
+    showEpisodes:type==="tv"&&Boolean(showEpisodes),featured:false,recommended:false,originalTitle
+  };
+}
+async function feTmdbImport(result) {
+  if(entMetadataStatus)entMetadataStatus.textContent="Loading complete metadata, artwork, stills and available trailer…";
+  try {
+    const bundle=await feTmdbGetDetails(result); const category=feTmdbCategory(); const data=feTmdbExtractData(bundle,category,document.getElementById("entAutoShowEpisodes")?.checked);
+    const map={entTitle:"title",entCategory:"category",entYear:"year",entRating:"rating",entLanguage:"language",entQuality:"quality",entRuntime:"runtime",entStatus:"status",entCountry:"country",entTagline:"tagline",entCast:"cast",entDescription:"description",entCoverUrl:"coverUrl",entBackgroundUrl:"backgroundUrl",entTrailerUrl:"trailerUrl",entTmdbId:"tmdbId",entImdbId:"imdbId",entSeasonCount:"seasonCount",entEpisodeCount:"episodeCount"};
+    Object.entries(map).forEach(([field,key])=>feTmdbSet(field,data[key]));
+    feTmdbSet("entTags",data.tags.join(", ")); feTmdbSet("entScreenshotUrls",data.screenshots.join("\n")); feTmdbSet("entVideoUrls",data.videos.join("\n"));
+    const ep=document.getElementById("entShowEpisodes"); if(ep)ep.checked=data.showEpisodes;
+    const categorySelect=document.getElementById("entCategory"); if(categorySelect)categorySelect.value=category;
+    const noVideo=data.trailerUrl?"":" No official YouTube trailer was found; you can add one manually.";
+    entMetadataStatus.textContent=`Loaded “${data.title}” into the editor: poster, backdrop, synopsis, genres/keywords, IDs and available stills${data.trailerUrl?", plus trailer":""}. Review it, add your download URL, then click Save title.${noVideo}`;
+    document.getElementById("entTitle")?.focus({preventScroll:true});
+  } catch(error){entMetadataStatus.textContent=error.message||"Could not import this title.";}
+}
+async function feTmdbPublish(result) {
+  const category=feTmdbCategory();
+  const quickButton=Array.from(entMetadataResults.querySelectorAll("button")).find(button=>button.dataset.busyResult===String(result.id));
+  if(quickButton){quickButton.disabled=true;}
+  entMetadataStatus.textContent=`Fetching metadata for “${feTmdbResultTitle(result)}” before adding it to your library…`;
+  try {
+    const bundle=await feTmdbGetDetails(result); const data=feTmdbExtractData(bundle,category,document.getElementById("entAutoShowEpisodes")?.checked);
+    if(Array.isArray(allEntertainment)&&allEntertainment.some(item=>String(item.tmdbId||"")===String(data.tmdbId)&&data.tmdbId)) { entMetadataStatus.textContent=`“${data.title}” is already in your entertainment library. Use the library's Edit option to update it.`; return; }
+    await addDoc(collection(db,"entertainment"),{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+    entMetadataStatus.textContent=`Added “${data.title}” to Firestore with metadata and artwork. IMPORTANT: open Entertainment Library → Edit to add/verify your legal download URL and video links before publishing it to visitors.`;
+  } catch(error){entMetadataStatus.textContent=`Could not add title: ${error.message||"Check token and Firestore permissions."}`;}
+  finally {if(quickButton)quickButton.disabled=false;}
+}
+async function feTmdbTestToken() {
+  entMetadataStatus.textContent="Testing TMDB token…";
+  try { const data=await feTmdbFetch("/configuration"); try{localStorage.setItem("fe_ent_tmdb_read_token",entTmdbTokenInput.value.trim());}catch(_){} entMetadataStatus.textContent=`Token works. TMDB image configuration loaded${data.images?.secure_base_url?"; artwork URLs are reachable":""}. Search a title or browse popular titles below.`; }
+  catch(error){entMetadataStatus.textContent=error.message||"Token test failed.";}
+}
+async function feTmdbBrowsePopular(resetPage=true) {
+  const category=feTmdbCategory();
+  if(resetPage||feTmdbLastBrowseCategory!==category){feTmdbBrowsePage=1;feTmdbLastBrowseCategory=category;}
+  const page=feTmdbBrowsePage;
+  entMetadataResults.replaceChildren(); entMetadataStatus.textContent=`Loading popular ${category} titles (page ${page})…`;
+  try {
+    let endpoint="";
+    if(category==="movies") endpoint=`/movie/popular?include_adult=false&page=${page}`;
+    else if(category==="anime") endpoint=`/discover/tv?with_genres=16&with_original_language=ja&sort_by=popularity.desc&include_adult=false&page=${page}`;
+    else if(category==="drama") endpoint=`/discover/tv?with_genres=18&sort_by=popularity.desc&include_adult=false&page=${page}`;
+    else endpoint=`/tv/popular?include_adult=false&page=${page}`;
+    const data=await feTmdbFetch(endpoint); const found=(data.results||[]).map(item=>({...item,media_type:category==="movies"?"movie":"tv"}));
+    feTmdbLastBrowseMode="browse"; if(entMetadataNextBtn)entMetadataNextBtn.disabled=!(data.page<data.total_pages&&data.page<500);
+    feTmdbRenderResults(found,found.length?`Loaded ${found.length} popular ${category} titles · page ${data.page} of ${data.total_pages}. Select Add to library for each title you want to publish, or Fill editor to review it first.`:`No titles returned for ${category}.`);
+  } catch(error){if(entMetadataNextBtn)entMetadataNextBtn.disabled=true;entMetadataStatus.textContent=error.message||"Could not load popular titles.";}
+}
+document.getElementById("entMetadataSearchBtn")?.addEventListener("click",feTmdbSearch);
+document.getElementById("entMetadataTestBtn")?.addEventListener("click",feTmdbTestToken);
+document.getElementById("entMetadataBrowseBtn")?.addEventListener("click",()=>feTmdbBrowsePopular(true));
+entMetadataNextBtn?.addEventListener("click",()=>{feTmdbBrowsePage+=1;feTmdbBrowsePopular(false);});
+entMetadataQuery?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();feTmdbSearch();}});
+document.getElementById("entCategory")?.addEventListener("change",()=>{if(feTmdbLastBrowseMode==="browse"){feTmdbBrowsePage=1;feTmdbBrowsePopular(true);}});
+
+/* =====================================================
+   ENTERTAINMENT CONTROL PANEL — Firestore collection
+===================================================== */
+let allEntertainment = [];
+let editingEntertainmentId = null;
+let unsubscribeEntertainment = null;
+const entListPanel = document.getElementById("entertainmentAdminPanel");
+const entFormPanel = document.getElementById("entertainmentFormPanel");
+const entAdminList = document.getElementById("entAdminList");
+const entAdminSearch = document.getElementById("entAdminSearch");
+const entAdminFilter = document.getElementById("entAdminFilter");
+const entSaveBtn = document.getElementById("entSaveBtn");
+const entAdminFields = ["entTitle", "entCategory", "entYear", "entRating", "entLanguage", "entQuality", "entRuntime", "entStatus", "entCountry", "entTagline", "entCast", "entBadge", "entSortOrder", "entDescription", "entTags", "entCoverUrl", "entBackgroundUrl", "entScreenshotUrls", "entTrailerUrl", "entVideoUrls", "entDownloadUrl", "entDownloadLinks", "entTmdbId", "entImdbId", "entSeasonCount", "entEpisodeCount"];
+
+function feEntAdminEscape(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"}[char]));
+}
+function feEntAdminSafeUrl(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    try { const url = new URL(raw); return /^https?:$/.test(url.protocol) ? url.href : "INVALID"; }
+    catch (_) { return "INVALID"; }
+}
+function feEntAdminList(value) {
+    return String(value || "").split(/\r?\n/).map(item => item.trim()).filter(Boolean);
+}
+function feEntAdminDataFromForm() {
+    const value = id => document.getElementById(id).value.trim();
+    return {
+        title: value("entTitle"), category: value("entCategory"), year: value("entYear"), rating: value("entRating"),
+        language: value("entLanguage"), quality: value("entQuality"), runtime: value("entRuntime"), status: value("entStatus"), country: value("entCountry"), tagline: value("entTagline"), cast: value("entCast"), badge: value("entBadge"), sortOrder: Number(value("entSortOrder")) || 0,
+        description: value("entDescription"), tags: value("entTags").split(",").map(tag => tag.trim()).filter(Boolean),
+        coverUrl: value("entCoverUrl"), backgroundUrl: value("entBackgroundUrl"), screenshots: feEntAdminList(value("entScreenshotUrls")),
+        trailerUrl: value("entTrailerUrl"), videos: feEntAdminList(value("entVideoUrls")), downloadUrl: value("entDownloadUrl"), downloadLinks: feEntAdminList(value("entDownloadLinks")),
+        tmdbId: value("entTmdbId"), imdbId: value("entImdbId"), seasonCount: Math.max(0, Number(value("entSeasonCount")) || 0), episodeCount: Math.max(0, Number(value("entEpisodeCount")) || 0), showEpisodes: document.getElementById("entShowEpisodes").checked,
+        featured: document.getElementById("entFeatured").checked, recommended: document.getElementById("entRecommended").checked
+    };
+}
+function feEntValidateAdminData(data) {
+    if (!data.title) { showToast("Please enter a title for the entertainment item."); document.getElementById("entTitle").focus(); return false; }
+    if (!["anime", "movies", "drama", "series"].includes(data.category)) { showToast("Please select a valid category."); return false; }
+    const urlFields = [["Poster / cover image", data.coverUrl], ["Background image", data.backgroundUrl], ["Trailer", data.trailerUrl], ["Primary download", data.downloadUrl]];
+    for (const [label, url] of urlFields) { if (url && feEntAdminSafeUrl(url) === "INVALID") { showToast(`${label} must be a valid HTTP or HTTPS URL.`); return false; } }
+    for (const [label, links] of [["Screenshot", data.screenshots], ["Video", data.videos], ["Extra download", data.downloadLinks]]) {
+        for (const url of links) { if (feEntAdminSafeUrl(url) === "INVALID") { showToast(`${label} link is invalid: ${url}`); return false; } }
+    }
+    if (data.sortOrder < 0 || data.sortOrder > 99999) { showToast("Display priority must be between 0 and 99999."); return false; }
+    return true;
+}
+function feEntAdminShow(mode) {
+    const listMode = mode === "list";
+    const formMode = mode === "form";
+    entListPanel.classList.toggle("hidden", !listMode);
+    entFormPanel.classList.toggle("hidden", !formMode);
+    management.classList.remove("active");
+    formManagement.classList.add("hidden");
+    const appStatsPanel = document.querySelector(".stats");
+    if (appStatsPanel) appStatsPanel.style.display = "none";
+    document.getElementById("showDashboardBtn").classList.toggle("active", false);
+    document.getElementById("showAddBtn").classList.toggle("active", false);
+    document.getElementById("showEntertainmentBtn").classList.toggle("active", listMode);
+    document.getElementById("showAddEntertainmentBtn").classList.toggle("active", formMode);
+    pageHeading.textContent = listMode ? "Entertainment Library" : (editingEntertainmentId ? "Edit Entertainment" : "Add Entertainment");
+    pageDescription.textContent = listMode ? "Manage anime, movies, drama and series published to the Entertainment hub." : "Publish a polished entertainment card with linked artwork, media and download options.";
+    if (mode === "list") renderEntertainmentAdminList();
+}
+function feEntAdminClearForm() {
+    entAdminFields.forEach(id => { const el = document.getElementById(id); if (el) el.value = id === "entSortOrder" ? "0" : ""; });
+    document.getElementById("entCategory").value = "anime";
+    document.getElementById("entFeatured").checked = false;
+    document.getElementById("entRecommended").checked = false;
+    document.getElementById("entShowEpisodes").checked = false;
+    ["entTmdbId", "entImdbId", "entSeasonCount", "entEpisodeCount"].forEach(id => { document.getElementById(id).value = ""; });
+}
+function feEntAdminAdd() {
+    editingEntertainmentId = null;
+    feEntAdminClearForm();
+    document.getElementById("entFormHeading").textContent = "Add a title";
+    entSaveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save title';
+    feEntAdminShow("form");
+    document.getElementById("entTitle").focus({ preventScroll: true });
+}
+function feEntAdminEdit(id) {
+    const item = allEntertainment.find(entry => entry.id === id);
+    if (!item) { showToast("Entertainment item was not found. Refresh the library and try again."); return; }
+    editingEntertainmentId = id;
+    feEntAdminClearForm();
+    const val = (field, value) => { document.getElementById(field).value = value ?? ""; };
+    val("entTitle", item.title); val("entCategory", item.category); val("entYear", item.year); val("entRating", item.rating);
+    val("entLanguage", item.language); val("entQuality", item.quality); val("entRuntime", item.runtime); val("entStatus", item.status); val("entCountry", item.country); val("entTagline", item.tagline); val("entCast", item.cast); val("entBadge", item.badge); val("entSortOrder", item.sortOrder ?? 0);
+    val("entDescription", item.description); val("entTags", Array.isArray(item.tags) ? item.tags.join(", ") : "");
+    val("entCoverUrl", item.coverUrl); val("entBackgroundUrl", item.backgroundUrl); val("entScreenshotUrls", (item.screenshots || []).join("\n"));
+    val("entTrailerUrl", item.trailerUrl); val("entVideoUrls", (item.videos || []).join("\n")); val("entDownloadUrl", item.downloadUrl); val("entDownloadLinks", (item.downloadLinks || []).join("\n"));
+    val("entTmdbId", item.tmdbId); val("entImdbId", item.imdbId); val("entSeasonCount", item.seasonCount); val("entEpisodeCount", item.episodeCount); document.getElementById("entShowEpisodes").checked = item.showEpisodes === true;
+    document.getElementById("entFeatured").checked = item.featured === true;
+    document.getElementById("entRecommended").checked = item.recommended === true;
+    document.getElementById("entFormHeading").textContent = `Edit: ${item.title}`;
+    entSaveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Update title';
+    feEntAdminShow("form");
+}
+function renderEntertainmentAdminList() {
+    if (!entAdminList) return;
+    const search = (entAdminSearch?.value || "").trim().toLowerCase();
+    const filter = entAdminFilter?.value || "all";
+    const items = allEntertainment.filter(item => (filter === "all" || item.category === filter) && (!search || [item.title, item.category, item.description, item.year, ...(item.tags || [])].join(" ").toLowerCase().includes(search)));
+    document.getElementById("entTotalAdmin").textContent = String(allEntertainment.length);
+    document.getElementById("entFeaturedAdmin").textContent = String(allEntertainment.filter(item => item.featured).length);
+    document.getElementById("entRecommendedAdmin").textContent = String(allEntertainment.filter(item => item.recommended).length);
+    if (!items.length) {
+        const isEmpty = !allEntertainment.length;
+        entAdminList.innerHTML = `<div class="fe-ent-admin-empty"><i class="fa-solid fa-${isEmpty ? "clapperboard" : "magnifying-glass"}"></i><strong>${isEmpty ? "Your entertainment library is empty" : "No matching titles"}</strong><span>${isEmpty ? "Add your first anime, movie, drama or series. Its card will appear in the public Entertainment hub." : "Try another search or category filter."}</span></div>`;
+        return;
+    }
+    entAdminList.innerHTML = items.map(item => `<article class="fe-ent-admin-row"><img class="fe-ent-admin-poster" src="${feEntAdminEscape(item.coverUrl || "logo.png")}" alt="" loading="lazy" onerror="this.onerror=null;this.src='logo.png'"><div class="fe-ent-admin-row-info"><h3>${feEntAdminEscape(item.title)}</h3><div class="fe-ent-admin-row-meta"><span>${feEntAdminEscape(item.category)}</span>${item.year ? `<span>${feEntAdminEscape(item.year)}</span>` : ""}${item.rating ? `<span>★ ${feEntAdminEscape(item.rating)}</span>` : ""}${item.featured ? '<span class="featured"><i class="fa-solid fa-star"></i> Featured</span>' : ""}${item.recommended ? '<span class="recommended"><i class="fa-solid fa-sparkles"></i> Recommended</span>' : ""}<span>${(item.downloadUrl || (item.downloadLinks || []).length) ? "Download ready" : "No download link"}</span></div><p>${feEntAdminEscape(item.description || (item.tags || []).join(" · ") || "No synopsis added.")}</p></div><div class="fe-ent-admin-row-actions"><button class="icon-btn" type="button" title="Edit title" data-ent-admin-edit="${feEntAdminEscape(item.id)}"><i class="fa-solid fa-pen"></i></button><button class="icon-btn delete" type="button" title="Delete title" data-ent-admin-delete="${feEntAdminEscape(item.id)}"><i class="fa-solid fa-trash"></i></button></div></article>`).join("");
+}
+function startEntertainmentListener() {
+    if (unsubscribeEntertainment) unsubscribeEntertainment();
+    unsubscribeEntertainment = onSnapshot(collection(db, "entertainment"), snapshot => {
+        allEntertainment = snapshot.docs.map(item => ({ id: item.id, ...item.data() })).map(item => ({
+            ...item,
+            title: String(item.title || item.name || "Untitled"),
+            category: ["anime", "movies", "drama", "series"].includes(String(item.category || "").toLowerCase()) ? String(item.category).toLowerCase() : "movies",
+            tags: Array.isArray(item.tags) ? item.tags : [],
+            screenshots: Array.isArray(item.screenshots) ? item.screenshots : [],
+            videos: Array.isArray(item.videos) ? item.videos : [],
+            downloadLinks: Array.isArray(item.downloadLinks) ? item.downloadLinks : [],
+            sortOrder: Number(item.sortOrder) || 0
+        })).sort((a, b) => (b.sortOrder - a.sortOrder) || Number(b.featured) - Number(a.featured) || String(a.title).localeCompare(String(b.title)));
+        renderEntertainmentAdminList();
+    }, error => {
+        console.error("Entertainment collection listener failed:", error);
+        entAdminList.innerHTML = `<div class="fe-ent-admin-empty"><i class="fa-solid fa-triangle-exclamation"></i><strong>Could not load entertainment</strong><span>${feEntAdminEscape(error.message || "Check Firestore collection permissions for entertainment.")}</span></div>`;
+        if (!entListPanel.classList.contains("hidden")) showToast("Entertainment collection could not load. Check Firestore permissions.");
+    });
+}
+async function feEntAdminSave(event) {
+    event?.preventDefault();
+    const data = feEntAdminDataFromForm();
+    if (!feEntValidateAdminData(data)) return;
+    const original = entSaveBtn.innerHTML;
+    entSaveBtn.disabled = true;
+    entSaveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving…';
+    try {
+        if (editingEntertainmentId) {
+            await updateDoc(doc(db, "entertainment", editingEntertainmentId), { ...data, updatedAt: serverTimestamp() });
+            showToast("✓ Entertainment title updated successfully.");
+        } else {
+            await addDoc(collection(db, "entertainment"), { ...data, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+            showToast("✓ Entertainment title published successfully.");
+        }
+        editingEntertainmentId = null;
+        feEntAdminClearForm();
+        feEntAdminShow("list");
+    } catch (error) {
+        console.error("Could not save entertainment title:", error);
+        showToast("Could not save title: " + (error.message || "Check Firestore permissions."));
+    } finally {
+        entSaveBtn.disabled = false;
+        entSaveBtn.innerHTML = original;
+    }
+}
+async function feEntAdminDelete(id) {
+    const item = allEntertainment.find(entry => entry.id === id);
+    if (!item) return;
+    if (!confirm(`Delete "${item.title}" from the Entertainment hub? This cannot be undone.`)) return;
+    try {
+        await deleteDoc(doc(db, "entertainment", id));
+        showToast("✓ Entertainment title deleted.");
+    } catch (error) {
+        console.error("Could not delete entertainment title:", error);
+        showToast("Could not delete title: " + (error.message || "Check Firestore permissions."));
+    }
+}
+
+function feEntAdminHideForApps() {
+    entListPanel.classList.add("hidden");
+    entFormPanel.classList.add("hidden");
+    const appStatsPanel = document.querySelector(".stats");
+    if (appStatsPanel) appStatsPanel.style.display = "";
+    document.getElementById("showEntertainmentBtn").classList.remove("active");
+    document.getElementById("showAddEntertainmentBtn").classList.remove("active");
+}
+
+document.getElementById("showEntertainmentBtn").addEventListener("click", () => feEntAdminShow("list"));
+document.getElementById("showAddEntertainmentBtn").addEventListener("click", feEntAdminAdd);
+document.getElementById("entToolbarAddBtn").addEventListener("click", feEntAdminAdd);
+document.getElementById("entCancelBtn").addEventListener("click", () => { editingEntertainmentId = null; feEntAdminShow("list"); });
+document.getElementById("entCancelBottomBtn").addEventListener("click", () => { editingEntertainmentId = null; feEntAdminShow("list"); });
+document.getElementById("entertainmentAdminForm").addEventListener("submit", feEntAdminSave);
+entAdminSearch.addEventListener("input", renderEntertainmentAdminList);
+entAdminFilter.addEventListener("change", renderEntertainmentAdminList);
+entAdminList.addEventListener("click", event => {
+    const editButton = event.target.closest("[data-ent-admin-edit]");
+    const deleteButton = event.target.closest("[data-ent-admin-delete]");
+    if (editButton) feEntAdminEdit(editButton.dataset.entAdminEdit);
+    if (deleteButton) feEntAdminDelete(deleteButton.dataset.entAdminDelete);
+});
+// Selecting an existing app-management view always hides this separate panel again.
+[document.getElementById("showDashboardBtn"), document.getElementById("showAddBtn"), document.getElementById("toolbarAddBtn")].forEach(button => button?.addEventListener("click", feEntAdminHideForApps));
+startEntertainmentListener();
+
+</script>
+
+<div id="feFileOriginWarning" hidden><strong>Local-file mode detected.</strong> Firebase and the metadata importer use JavaScript modules and will not run reliably when this HTML is opened by double-clicking a <code>file:///C:/...</code> path. Open the deployed admin page on your GitHub Pages site, or run the folder with VS Code Live Server, then sign in and try again.</div>
+<script>
+(function(){
+  const warning=document.getElementById("feFileOriginWarning");
+  if(location.protocol==="file:" && warning) warning.hidden=false;
+})();
+</script>
+</body>
+
+</html>
