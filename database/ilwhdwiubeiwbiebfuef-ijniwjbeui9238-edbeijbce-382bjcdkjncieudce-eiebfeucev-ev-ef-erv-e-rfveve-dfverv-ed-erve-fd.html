@@ -2355,10 +2355,17 @@ Android
       <div class="field full"><label for="entVideoUrls">Extra video URLs <span>(one per line; YouTube/Vimeo or direct MP4/WebM)</span></label><textarea id="entVideoUrls" placeholder="https://www.youtube.com/watch?v=...&#10;https://cdn.example.com/preview.mp4"></textarea></div>
     </div></section>
 
-    <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-cloud-arrow-down"></i><span>Download links</span></div><div class="form-grid">
-      <div class="field full"><label for="entDownloadUrl">Primary download URL <span>(recommended)</span></label><input id="entDownloadUrl" type="url" placeholder="https://example.com/download"></div>
-      <div class="field full"><label for="entDownloadLinks">Extra download mirrors <span>(one URL per line)</span></label><textarea id="entDownloadLinks" placeholder="https://example.com/mirror-1&#10;https://example.com/mirror-2"></textarea></div>
+        <section class="panel fe-ent-form-panel"><div class="panel-title"><i class="fa-solid fa-cloud-arrow-down"></i><span>Download links</span></div><div class="form-grid">
+      <div class="field full"><label for="entDownloadUrl">Primary download URL <span>(recommended)</span></label><input id="entDownloadUrl" type="url" placeholder="https://example.com"></div>
+      <div class="field full">
+        <label>Extra download links / Episodes <span>(set custom button name + URL)</span></label>
+        <div id="entMirrorRows" style="display:grid;gap:10px;"></div>
+        <button type="button" class="btn btn-secondary" id="entAddMirrorBtn" style="margin-top:10px;width:fit-content;">
+          <i class="fa-solid fa-plus"></i> Add More Link
+        </button>
+      </div>
     </div><p class="fe-ent-form-help"><i class="fa-solid fa-shield-halved"></i> The buttons open the link supplied by the admin in a new tab. Only publish links you are authorized to share.</p></section>
+
     <div class="fe-ent-form-actions"><button type="button" class="btn btn-secondary" id="entCancelBottomBtn">Cancel</button><button type="submit" class="btn btn-primary" id="entSaveBtn"><i class="fa-solid fa-floppy-disk"></i> Save title</button></div>
   </form>
 </section>
@@ -4081,9 +4088,36 @@ const entAdminList = document.getElementById("entAdminList");
 const entAdminSearch = document.getElementById("entAdminSearch");
 const entAdminFilter = document.getElementById("entAdminFilter");
 const entSaveBtn = document.getElementById("entSaveBtn");
-const entAdminFields = ["entTitle", "entCategory", "entYear", "entRating", "entLanguage", "entQuality", "entRuntime", "entStatus", "entCountry", "entTagline", "entCast", "entBadge", "entSortOrder", "entDescription", "entTags", "entCoverUrl", "entBackgroundUrl", "entScreenshotUrls", "entTrailerUrl", "entVideoUrls", "entDownloadUrl", "entDownloadLinks", "entTmdbId", "entImdbId", "entSeasonCount", "entEpisodeCount"];
+const entAdminFields = ["entTitle", "entCategory", "entYear", "entRating", "entLanguage", "entQuality", "entRuntime", "entStatus", "entCountry", "entTagline", "entCast", "entBadge", "entSortOrder", "entDescription", "entTags", "entCoverUrl", "entBackgroundUrl", "entScreenshotUrls", "entTrailerUrl", "entVideoUrls", "entDownloadUrl", "entTmdbId", "entImdbId", "entSeasonCount", "entEpisodeCount"];
+
+function feEntAddMirrorRow(label = "", url = "") {
+    const container = document.getElementById("entMirrorRows");
+    if (!container) return;
+    const row = document.createElement("div");
+    row.className = "ent-mirror-row";
+    row.style.cssText = "display:grid;grid-template-columns:minmax(140px,1fr) minmax(0,2fr) auto;gap:8px;align-items:center;";
+    row.innerHTML = `
+        <input type="text" class="ent-mirror-label" placeholder="Name (e.g. Episode 1 or Mirror 1)" value="${feEntAdminEscape(label)}">
+        <input type="url" class="ent-mirror-url" placeholder="https://example.com" value="${feEntAdminEscape(url)}">
+        <button type="button" class="icon-btn delete" title="Remove row"><i class="fa-solid fa-trash"></i></button>
+    `;
+    row.querySelector("button").addEventListener("click", () => row.remove());
+    container.appendChild(row);
+}
+
+function feEntCollectMirrorRows() {
+    const rows = document.querySelectorAll("#entMirrorRows .ent-mirror-row");
+    const list = [];
+    rows.forEach(row => {
+        const label = row.querySelector(".ent-mirror-label")?.value.trim() || "";
+        const url = row.querySelector(".ent-mirror-url")?.value.trim() || "";
+        if (url || label) list.push({ label, url });
+    });
+    return list;
+}
 
 function feEntAdminEscape(value) {
+
     return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"}[char]));
 }
 function feEntAdminSafeUrl(value) {
@@ -4101,8 +4135,8 @@ function feEntAdminDataFromForm() {
         title: value("entTitle"), category: value("entCategory"), year: value("entYear"), rating: value("entRating"),
         language: value("entLanguage"), quality: value("entQuality"), runtime: value("entRuntime"), status: value("entStatus"), country: value("entCountry"), tagline: value("entTagline"), cast: value("entCast"), badge: value("entBadge"), sortOrder: Number(value("entSortOrder")) || 0,
         description: value("entDescription"), tags: value("entTags").split(",").map(tag => tag.trim()).filter(Boolean),
-        coverUrl: value("entCoverUrl"), backgroundUrl: value("entBackgroundUrl"), screenshots: feEntAdminList(value("entScreenshotUrls")),
-        trailerUrl: value("entTrailerUrl"), videos: feEntAdminList(value("entVideoUrls")), downloadUrl: value("entDownloadUrl"), downloadLinks: feEntAdminList(value("entDownloadLinks")),
+                coverUrl: value("entCoverUrl"), backgroundUrl: value("entBackgroundUrl"), screenshots: feEntAdminList(value("entScreenshotUrls")),
+        trailerUrl: value("entTrailerUrl"), videos: feEntAdminList(value("entVideoUrls")), downloadUrl: value("entDownloadUrl"), downloadLinks: feEntCollectMirrorRows(),
         tmdbId: value("entTmdbId"), imdbId: value("entImdbId"), seasonCount: Math.max(0, Number(value("entSeasonCount")) || 0), episodeCount: Math.max(0, Number(value("entEpisodeCount")) || 0), showEpisodes: document.getElementById("entShowEpisodes").checked,
         featured: document.getElementById("entFeatured").checked, recommended: document.getElementById("entRecommended").checked
     };
@@ -4112,8 +4146,12 @@ function feEntValidateAdminData(data) {
     if (!["anime", "movies", "drama", "series"].includes(data.category)) { showToast("Please select a valid category."); return false; }
     const urlFields = [["Poster / cover image", data.coverUrl], ["Background image", data.backgroundUrl], ["Trailer", data.trailerUrl], ["Primary download", data.downloadUrl]];
     for (const [label, url] of urlFields) { if (url && feEntAdminSafeUrl(url) === "INVALID") { showToast(`${label} must be a valid HTTP or HTTPS URL.`); return false; } }
-    for (const [label, links] of [["Screenshot", data.screenshots], ["Video", data.videos], ["Extra download", data.downloadLinks]]) {
+    for (const [label, links] of [["Screenshot", data.screenshots], ["Video", data.videos]]) {
         for (const url of links) { if (feEntAdminSafeUrl(url) === "INVALID") { showToast(`${label} link is invalid: ${url}`); return false; } }
+    }
+    for (const item of data.downloadLinks) {
+        if (!item.url) { showToast(`Please enter a URL for "${item.label || "Extra download"}".`); return false; }
+        if (feEntAdminSafeUrl(item.url) === "INVALID") { showToast(`Extra download link is invalid: ${item.url}`); return false; }
     }
     if (data.sortOrder < 0 || data.sortOrder > 99999) { showToast("Display priority must be between 0 and 99999."); return false; }
     return true;
@@ -4137,6 +4175,8 @@ function feEntAdminShow(mode) {
 }
 function feEntAdminClearForm() {
     entAdminFields.forEach(id => { const el = document.getElementById(id); if (el) el.value = id === "entSortOrder" ? "0" : ""; });
+    const container = document.getElementById("entMirrorRows");
+    if (container) container.innerHTML = "";
     document.getElementById("entCategory").value = "anime";
     document.getElementById("entFeatured").checked = false;
     document.getElementById("entRecommended").checked = false;
@@ -4146,6 +4186,7 @@ function feEntAdminClearForm() {
 function feEntAdminAdd() {
     editingEntertainmentId = null;
     feEntAdminClearForm();
+    feEntAddMirrorRow();
     document.getElementById("entFormHeading").textContent = "Add a title";
     entSaveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save title';
     feEntAdminShow("form");
@@ -4161,7 +4202,17 @@ function feEntAdminEdit(id) {
     val("entLanguage", item.language); val("entQuality", item.quality); val("entRuntime", item.runtime); val("entStatus", item.status); val("entCountry", item.country); val("entTagline", item.tagline); val("entCast", item.cast); val("entBadge", item.badge); val("entSortOrder", item.sortOrder ?? 0);
     val("entDescription", item.description); val("entTags", Array.isArray(item.tags) ? item.tags.join(", ") : "");
     val("entCoverUrl", item.coverUrl); val("entBackgroundUrl", item.backgroundUrl); val("entScreenshotUrls", (item.screenshots || []).join("\n"));
-    val("entTrailerUrl", item.trailerUrl); val("entVideoUrls", (item.videos || []).join("\n")); val("entDownloadUrl", item.downloadUrl); val("entDownloadLinks", (item.downloadLinks || []).join("\n"));
+    val("entTrailerUrl", item.trailerUrl); val("entVideoUrls", (item.videos || []).join("\n")); val("entDownloadUrl", item.downloadUrl);
+    const savedMirrors = Array.isArray(item.downloadLinks) ? item.downloadLinks : [];
+    if (savedMirrors.length) {
+        savedMirrors.forEach(entry => {
+            if (entry && typeof entry === "object") feEntAddMirrorRow(entry.label || "", entry.url || "");
+            else feEntAddMirrorRow("", String(entry || ""));
+        });
+    } else {
+        feEntAddMirrorRow();
+    }
+
     val("entTmdbId", item.tmdbId); val("entImdbId", item.imdbId); val("entSeasonCount", item.seasonCount); val("entEpisodeCount", item.episodeCount); document.getElementById("entShowEpisodes").checked = item.showEpisodes === true;
     document.getElementById("entFeatured").checked = item.featured === true;
     document.getElementById("entRecommended").checked = item.recommended === true;
@@ -4255,7 +4306,9 @@ function feEntAdminHideForApps() {
 document.getElementById("showEntertainmentBtn").addEventListener("click", () => feEntAdminShow("list"));
 document.getElementById("showAddEntertainmentBtn").addEventListener("click", feEntAdminAdd);
 document.getElementById("entToolbarAddBtn").addEventListener("click", feEntAdminAdd);
+document.getElementById("entAddMirrorBtn")?.addEventListener("click", () => feEntAddMirrorRow());
 document.getElementById("entCancelBtn").addEventListener("click", () => { editingEntertainmentId = null; feEntAdminShow("list"); });
+
 document.getElementById("entCancelBottomBtn").addEventListener("click", () => { editingEntertainmentId = null; feEntAdminShow("list"); });
 document.getElementById("entertainmentAdminForm").addEventListener("submit", feEntAdminSave);
 entAdminSearch.addEventListener("input", renderEntertainmentAdminList);
